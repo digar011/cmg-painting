@@ -1,3 +1,4 @@
+import { PROJECTS } from '@/lib/projects';
 import { Metadata } from 'next';
 import Script from 'next/script';
 import { projectsQuery } from '@/sanity/lib/queries';
@@ -30,64 +31,6 @@ interface SanityProject {
   featured: boolean;
 }
 
-// Placeholder projects for when Sanity has no data
-const placeholderProjects = [
-  {
-    id: 'placeholder-1',
-    title: 'Modern Living Room Transformation',
-    category: 'Interior',
-    location: 'Morris County, NJ',
-    description: 'Complete interior painting with custom color palette and accent wall.',
-    imageSrc: '',
-    imageAlt: 'Modern living room interior painting',
-  },
-  {
-    id: 'placeholder-2',
-    title: 'Colonial Home Exterior',
-    category: 'Exterior',
-    location: 'Essex County, NJ',
-    description: 'Full exterior house painting with premium weather-resistant coating.',
-    imageSrc: '',
-    imageAlt: 'Colonial home exterior painting',
-  },
-  {
-    id: 'placeholder-3',
-    title: 'Deck Restoration Project',
-    category: 'Powerwashing',
-    location: 'Union County, NJ',
-    description: 'Complete deck cleaning and staining restoration.',
-    imageSrc: '',
-    imageAlt: 'Deck powerwashing and restoration',
-  },
-  {
-    id: 'placeholder-4',
-    title: 'Crown Molding Installation',
-    category: 'Carpentry',
-    location: 'Sussex County, NJ',
-    description: 'Custom crown molding installation throughout the home.',
-    imageSrc: '',
-    imageAlt: 'Crown molding carpentry work',
-  },
-  {
-    id: 'placeholder-5',
-    title: 'Kitchen Cabinet Refinishing',
-    category: 'Interior',
-    location: 'Morris County, NJ',
-    description: 'Complete cabinet painting and refinishing project.',
-    imageSrc: '',
-    imageAlt: 'Kitchen cabinet painting',
-  },
-  {
-    id: 'placeholder-6',
-    title: 'Driveway & Patio Cleaning',
-    category: 'Powerwashing',
-    location: 'Essex County, NJ',
-    description: 'Professional powerwashing of concrete driveway and patio.',
-    imageSrc: '',
-    imageAlt: 'Driveway powerwashing',
-  },
-];
-
 export default async function GalleryPage() {
   const isProduction = process.env.NODE_ENV === 'production';
   const hasSanityConfig = isProduction && Boolean(
@@ -115,7 +58,7 @@ export default async function GalleryPage() {
         imageSrc: '',
         imageAlt: project.title,
       }))
-    : placeholderProjects;
+    : [...PROJECTS];
 
   const gallerySchema = {
     "@context": "https://schema.org",

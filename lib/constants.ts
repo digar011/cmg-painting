@@ -3,7 +3,7 @@
 export const SITE_CONFIG = {
   name: 'CMG Painting and Design',
   tagline: 'Professional Painting & Design Services',
-  phone: '973 123 4563',
+  phone: '(973) 462-7310',
   email: 'CMGpaintinganddesign@hotmail.com',
   address: {
     street: '63 Gristmill Rd',

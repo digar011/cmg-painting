@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -98,6 +99,16 @@ export default function GalleryClient({ projects }: GalleryClientProps) {
                   >
                     {/* Image Container */}
                     <div className="relative aspect-[4/3] overflow-hidden bg-cmg-light">
+                      {project.imageSrc ? (
+                        <Image
+                          src={project.imageSrc}
+                          alt={project.imageAlt}
+                          fill
+                          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                          data-testid="project-image"
+                        />
+                      ) : (
                       <div className="absolute inset-0 flex items-center justify-center">
                         <div className="text-center">
                           <svg
@@ -118,6 +129,7 @@ export default function GalleryClient({ projects }: GalleryClientProps) {
                           </p>
                         </div>
                       </div>
+                      )}
 
                       {/* Hover Overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-cmg-charcoal/90 via-cmg-charcoal/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -241,6 +253,16 @@ export default function GalleryClient({ projects }: GalleryClientProps) {
 
               {/* Image */}
               <div className="relative aspect-video bg-cmg-light">
+                {selectedProject.imageSrc ? (
+                  <Image
+                    src={selectedProject.imageSrc}
+                    alt={selectedProject.imageAlt}
+                    fill
+                    sizes="(min-width: 1024px) 896px, 100vw"
+                    className="object-contain bg-cmg-charcoal"
+                    data-testid="project-modal-image"
+                  />
+                ) : (
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center">
                     <svg
@@ -259,6 +281,7 @@ export default function GalleryClient({ projects }: GalleryClientProps) {
                     <p className="text-cmg-gray/50">Insert Project Image</p>
                   </div>
                 </div>
+                )}
               </div>
 
               {/* Content */}

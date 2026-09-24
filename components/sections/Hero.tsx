@@ -1,29 +1,21 @@
+import Image from 'next/image';
 import Link from 'next/link';
+import { HERO_IMAGE } from '@/lib/projects';
 
 export default function Hero() {
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden" data-testid="home-hero">
-      {/* Background - Placeholder for image/video */}
+      {/* Background image */}
       <div className="absolute inset-0 bg-gradient-to-br from-cmg-charcoal via-cmg-royal to-cmg-blue">
-        {/* Image placeholder overlay */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-20">
-          <div className="text-center text-cmg-white">
-            <svg
-              className="w-24 h-24 mx-auto mb-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1}
-                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-              />
-            </svg>
-            <p className="text-lg">Insert Hero Background Image</p>
-          </div>
-        </div>
+        <Image
+          src={HERO_IMAGE.src}
+          alt={HERO_IMAGE.alt}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+          data-testid="hero-image"
+        />
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-cmg-charcoal/80 via-cmg-charcoal/50 to-transparent" />
       </div>
