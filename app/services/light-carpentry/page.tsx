@@ -1,3 +1,5 @@
+import Image from 'next/image';
+import { SERVICE_IMAGES } from '@/lib/projects';
 import { Metadata } from 'next';
 import Script from 'next/script';
 import Link from 'next/link';
@@ -83,16 +85,18 @@ export default function LightCarpentryPage() {
           </div>
         </section>
 
-        {/* Image Placeholder Section */}
+        {/* Project photo */}
         <section className="py-16 bg-cmg-off-white">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="aspect-[16/9] bg-cmg-light rounded-xl flex items-center justify-center">
-              <div className="text-center">
-                <svg className="w-16 h-16 text-cmg-gray/30 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <p className="text-cmg-gray">Insert Light Carpentry Image</p>
-              </div>
+            <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-cmg-light shadow-glass-md">
+              <Image
+                src={SERVICE_IMAGES['light-carpentry'].src}
+                alt={SERVICE_IMAGES['light-carpentry'].alt}
+                fill
+                sizes="(min-width: 1280px) 1216px, 100vw"
+                className="object-cover"
+                data-testid="service-image"
+              />
             </div>
           </div>
         </section>
