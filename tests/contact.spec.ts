@@ -3,6 +3,8 @@ import { test, expect } from '@playwright/test';
 test.describe('Contact Page', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/contact');
+    // Wait for hydration: typing before React attaches loses the first field's state.
+    await page.waitForLoadState('networkidle');
   });
 
   test('displays page title', async ({ page }) => {
@@ -90,7 +92,14 @@ test.describe('Contact Page', () => {
       await expect(page.getByTestId('error-phone')).toBeVisible();
     });
 
+    // Delivery is an external email service; UI tests stub the API response.
+    const stubContactApi = (page: import('@playwright/test').Page, status: number, body: object) =>
+      page.route('**/api/contact', (route) =>
+        route.fulfill({ status, contentType: 'application/json', body: JSON.stringify(body) }),
+      );
+
     test('form submission works with valid data', async ({ page }) => {
+      await stubContactApi(page, 200, { success: true });
       await page.getByTestId('input-name').fill('John Doe');
       await page.getByTestId('input-email').fill('test@example.com');
       await page.getByTestId('input-phone').fill('1234567890');
@@ -101,11 +110,25 @@ test.describe('Contact Page', () => {
     });
 
     test('success message displays after submission', async ({ page }) => {
+      await stubContactApi(page, 200, { success: true });
       await page.getByTestId('input-name').fill('John Doe');
       await page.getByTestId('input-email').fill('test@example.com');
       await page.getByTestId('input-phone').fill('1234567890');
       await page.getByTestId('submit-button').click();
       await expect(page.getByTestId('form-success')).toContainText('Thank You');
+    });
+
+    test('delivery failure shows the call-us message, not a fake success', async ({ page }) => {
+      await stubContactApi(page, 503, {
+        success: false,
+        errors: ["We couldn't send your request online. Please call us at (973) 462-7310."],
+      });
+      await page.getByTestId('input-name').fill('John Doe');
+      await page.getByTestId('input-email').fill('test@example.com');
+      await page.getByTestId('input-phone').fill('1234567890');
+      await page.getByTestId('submit-button').click();
+      await expect(page.getByTestId('form-error')).toContainText('(973) 462-7310');
+      await expect(page.getByTestId('form-success')).toHaveCount(0);
     });
   });
 

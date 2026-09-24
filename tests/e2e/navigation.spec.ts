@@ -2,6 +2,8 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Navigation Tests', () => {
   test.describe('Desktop Navigation', () => {
+    // The desktop menu is hidden below the lg breakpoint; mobile nav is covered separately.
+    test.skip(({ isMobile }) => isMobile, 'desktop navigation is not rendered on mobile');
     test('header displays all navigation links', async ({ page }) => {
       await page.goto('/');
       await expect(page.getByTestId('nav-link-services')).toBeVisible();
