@@ -13,6 +13,7 @@ const footerLinks = {
     { name: 'About Us', href: '/about' },
     { name: 'Gallery', href: '/gallery' },
     { name: 'Contact', href: '/contact' },
+    { name: 'Privacy Policy', href: '/privacy' },
   ],
   areas: SITE_CONFIG.counties.map((county) => ({
     name: county.replace(' County', ' Co.'),

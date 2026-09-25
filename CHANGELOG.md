@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- Privacy Policy page (`/privacy`), linked in the footer and sitemap. **Why:** Meta Instant Form lead ads require a privacy policy URL. **Outcome:** 2 E2E tests.
 - `SERVICE_TOWNS` in `lib/constants.ts`: towns with completed CMG projects, grouped by county.
 - New About page Playwright tests: process steps, recent work, service area, and CTA link targets.
 
