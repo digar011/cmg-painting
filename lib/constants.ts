@@ -18,6 +18,20 @@ export const SITE_CONFIG = {
   },
 } as const;
 
+/**
+ * Towns where CMG has completed work, grouped by the counties listed in
+ * SITE_CONFIG.counties. Sourced from past CMG proposals and invoices.
+ * Sussex County is served but has no documented town list yet.
+ */
+export const SERVICE_TOWNS = [
+  {
+    county: 'Morris County',
+    towns: ['Randolph', 'Morristown', 'Parsippany', 'Rockaway', 'Dover', 'Mine Hill', 'Chatham', 'Florham Park'],
+  },
+  { county: 'Essex County', towns: ['Livingston', 'West Orange'] },
+  { county: 'Union County', towns: ['Summit', 'Westfield', 'New Providence'] },
+] as const;
+
 export const NAV_LINKS = [
   { name: 'Home', href: '/' },
   { name: 'Services', href: '/services' },
