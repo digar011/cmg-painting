@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/gallery',
     '/about',
     '/contact',
+    '/privacy',
   ];
 
   return routes.map((route) => ({

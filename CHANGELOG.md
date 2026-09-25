@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [Unreleased]
+
+### Added
+- Privacy Policy page (`/privacy`), linked in the footer and sitemap. **Why:** Meta Instant Form lead ads require a privacy policy URL. **Outcome:** page live after merge; 2 E2E tests.
+
 ## [0.1.0] - 2026-02-28
 
 ### Added
