@@ -4,6 +4,8 @@
 
 A professional marketing and lead-generation website for **CMG Painting and Design**, a painting and home improvement services company based in Randolph, NJ. The website serves as the company's primary online presence, showcasing services, past work, and providing a contact mechanism for prospective customers across Northern New Jersey.
 
+**Live:** https://cmgpaintinganddesign.com
+
 ---
 
 ## Target Audience
@@ -27,9 +29,9 @@ A professional marketing and lead-generation website for **CMG Painting and Desi
 
 ### Home Page (`/`)
 
-- **Hero section** with primary CTA ("Get Free Quote") and secondary CTA ("View Our Work").
+- **Hero section** with a full-bleed AI-generated background image (never presented as a real project), primary CTA ("Get Free Quote") and secondary CTA ("View Our Work").
 - **Services overview** grid showing all four service categories with links to detail pages.
-- **Why CMG** section highlighting differentiators: Expert Craftsmanship, Transparent Pricing, On-Time Delivery, Fully Insured.
+- **Why CMG** section highlighting differentiators: Expert Craftsmanship, Transparent Pricing, On-Time Delivery, Fully Insured (note: "Fully Insured" was removed from the About page as unverified; confirm with the owner).
 - **Call-to-action** section with quote button and phone link.
 
 ### Services Hub (`/services`)
@@ -39,7 +41,7 @@ A professional marketing and lead-generation website for **CMG Painting and Desi
 
 ### Service Detail Pages
 
-Each service has its own page with detailed descriptions and Schema.org Service markup:
+Each service has its own page with a real CMG header photo, detailed descriptions and Schema.org Service markup:
 
 | Page | Path | Focus |
 |------|------|-------|
@@ -51,28 +53,36 @@ Each service has its own page with detailed descriptions and Schema.org Service 
 ### Gallery (`/gallery`)
 
 - **Category filtering** (All, Interior, Exterior, Powerwashing, Carpentry).
+- **21 real CMG project photos** (`lib/projects.ts`, WebP, EXIF/GPS stripped), including before/after pairs; captions describe only what is shown and locations stay general ("Northern New Jersey").
 - **Project cards** displaying title, category, location, and image.
 - **Lightbox modal** for enlarged image viewing.
-- **Sanity CMS integration** for content management (falls back to placeholder data when CMS is not configured).
+- **Optional Sanity CMS**: queried only in production when configured; its documents replace the local list when any exist. Not configured in production yet.
 - **60-second revalidation** for near-real-time content updates.
 
 ### About (`/about`)
 
-- Company overview and mission statement.
-- Stats section (Quality, Local, Fully Insured, 5-star Service).
-- "Our Story" narrative section with team photo placeholder.
-- Core values grid: Quality Craftsmanship, Transparent Communication, Customer First, Local Commitment.
-- Bottom CTA.
+Rewritten with fact-checked content from CMG's own proposals and records (PR #4):
+- "More Than a Decade of Painting in Northern New Jersey" story: locally owned Randolph, NJ company, residential and commercial work, owner-run, with a real project photo.
+- "What to Expect on Every Job": five-step process (walkthrough and written proposal, protection, preparation, two-coat Sherwin-Williams/Benjamin Moore finish, daily cleanup with labeled touch-up paint).
+- Core values grid.
+- "Real Projects by Our Crew" strip linking to the gallery.
+- Service area with documented towns per county (`SERVICE_TOWNS`).
+- CTA with phone and email links. JSON-LD `AboutPage` + `BreadcrumbList`.
 
 ### Contact (`/contact`)
 
-- **Contact information cards**: Phone, Email, Location.
+- **Contact information cards**: Phone, Email, Location (Randolph, NJ; city and state only).
 - **Quote request form** with fields: Name (required), Email (required), Phone (required), Service (optional), Message (optional).
 - Client-side validation with inline error messages.
-- Server-side validation via `/api/contact` API route.
+- Server-side validation via `/api/contact`, which emails the request to the business over SMTP (reply-to set to the visitor). If SMTP is not configured it returns 503 and asks the visitor to call; it never fakes success.
 - Success confirmation state after submission.
 - **"What to Expect"** process timeline (Quick Response, Free Consultation, Detailed Quote, Expert Execution).
 - **Service areas** section listing towns by county (Morris, Essex, Union, Sussex).
+
+### Privacy Policy (`/privacy`)
+
+- Plain-language policy covering information collected (website form and Facebook/Instagram lead forms), use, sharing, calls/texts, retention, choices.
+- Linked in the footer and included in the sitemap. Required by Meta Instant Form lead ads (PR #5).
 
 ### Sanity Studio (`/studio`)
 
@@ -92,7 +102,8 @@ Each service has its own page with detailed descriptions and Schema.org Service 
   - `WebPage` -- per page
   - `Service` -- service detail pages
   - `ContactPage` -- contact page
-  - `AboutPage` -- about page
+  - `AboutPage` + `BreadcrumbList` -- about page
+- **No street address or ZIP** in any markup (owner rule); `PostalAddress` holds city, state and country only, enforced by `tests/no-street-address.spec.ts`.
 - **OpenGraph and Twitter Card** metadata for social sharing.
 - **Dynamic XML sitemap** at `/sitemap.xml`.
 - **robots.txt** allowing all crawlers, disallowing `/api/` and `/studio/`.
@@ -131,12 +142,14 @@ Gallery projects are managed through Sanity CMS. Non-gallery content (service de
 | Content Type | Where to Update | Requires Deploy |
 |-------------|----------------|-----------------|
 | Gallery projects | Sanity Studio (`/studio`) | No (60s revalidation) |
-| Business info (phone, email, address) | `lib/constants.ts` | Yes |
+| Business info (phone, email, city/state) | `lib/constants.ts` | Yes |
+| Project photos and captions | `public/images/projects/` + `lib/projects.ts` | Yes |
 | Service descriptions | `app/services/*/page.tsx` | Yes |
 | About page text | `app/about/page.tsx` | Yes |
 | SEO metadata | Individual `page.tsx` files | Yes |
 | Navigation links | `lib/constants.ts` + `components/layout/Header.tsx` | Yes |
-| Service area towns | `app/contact/page.tsx` | Yes |
+| Service area towns (Contact page) | `app/contact/page.tsx` | Yes |
+| Documented service towns (About page) | `SERVICE_TOWNS` in `lib/constants.ts` | Yes |
 
 ---
 
@@ -174,7 +187,7 @@ Reusable UI components documented in `docs/COMPONENT-GUIDE.md`:
 
 ## Service Areas
 
-The business serves the following Northern NJ counties and towns:
+The Contact page lists the following towns (`app/contact/page.tsx`). The About page uses a shorter list of towns with documented completed projects (`SERVICE_TOWNS` in `lib/constants.ts`). The two lists differ and should be reconciled with the owner.
 
 | County | Towns |
 |--------|-------|
@@ -189,8 +202,11 @@ The business serves the following Northern NJ counties and towns:
 
 | Integration | Purpose | Status |
 |-------------|---------|--------|
-| Sanity CMS | Gallery content management | Configured (requires project ID) |
-| Nodemailer (SMTP) | Contact form email delivery | Placeholder (TODO: implement transport) |
+| Vercel | Hosting, preview deployments | Active (deploys `master`) |
+| Sanity CMS | Gallery content management | Wired up, not configured in production |
+| Nodemailer (SMTP) | Contact form email delivery | Active (SMTP env vars set in production) |
+| Meta (Facebook/Instagram) lead ads | Lead generation | Privacy page ready; ads not launched |
+| Meta Pixel / Conversions API | Ad conversion tracking | Not implemented |
 | Facebook | Social media link | Active |
 | Google Search Console | SEO monitoring | Not yet configured |
 | Google Analytics | Traffic analytics | Not yet configured |
@@ -199,8 +215,8 @@ The business serves the following Northern NJ counties and towns:
 
 ## Known Limitations
 
-1. **Contact form email sending** is not yet implemented -- form submissions are logged to console only. The Nodemailer transport code needs to be uncommented and configured in `app/api/contact/route.ts`.
-2. **Phone number** is a placeholder (`973 123 4563`) and needs to be updated with the real business number.
-3. **No og-image.jpg** in the public folder yet -- OpenGraph/Twitter card images will not display until this is added.
-4. **Team photo placeholder** on the About page needs to be replaced with an actual image.
-5. **No Google Analytics or Google Business Profile** integration yet.
+1. **No `og-image.jpg`, `favicon.ico` or `apple-touch-icon.png`** in `public/`, although `app/layout.tsx` references them (they 404 in production). Social previews and browser icons will not display until they are added.
+2. **No reviews/testimonials** section yet.
+3. **No Google Analytics, Search Console or Google Business Profile** integration yet.
+4. **No Meta Pixel / Conversions API** yet (needed before running Meta ads).
+5. **Contact form has no rate limiting or spam protection.**

@@ -40,7 +40,9 @@ export const metadata: Metadata = {
 
 ### Business Schema (HousePainter)
 
-Applied globally in `app/layout.tsx`:
+Applied globally in `app/layout.tsx` (values come from `SITE_CONFIG` in `lib/constants.ts`).
+
+> **Owner rule:** never publish a street address or ZIP code. The `PostalAddress` contains city, state and country only. `tests/no-street-address.spec.ts` fails the build if `streetAddress`, `postalCode` or the old street/ZIP appear on `/`, `/about`, `/contact` or `/privacy`.
 
 ```json
 {
@@ -49,14 +51,12 @@ Applied globally in `app/layout.tsx`:
   "@id": "https://cmgpaintinganddesign.com#localbusiness",
   "name": "CMG Painting and Design",
   "url": "https://cmgpaintinganddesign.com",
-  "telephone": "TBD",
+  "telephone": "(973) 462-7310",
   "email": "CMGpaintinganddesign@hotmail.com",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "63 Gristmill Rd",
     "addressLocality": "Randolph",
     "addressRegion": "NJ",
-    "postalCode": "07869",
     "addressCountry": "US"
   },
   "areaServed": [
@@ -198,13 +198,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/gallery',
     '/about',
     '/contact',
+    '/privacy',
   ];
 
   return routes.map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: route === '' ? 'weekly' : 'monthly',
-    priority: route === '' ? 1 : 0.8,
+    priority: route === '' ? 1 : route === '/services' ? 0.9 : 0.8,
   }));
 }
 ```
@@ -232,8 +233,8 @@ export default function robots(): MetadataRoute.Robots {
 
 Ensure Name, Address, Phone are consistent everywhere:
 - **Name**: CMG Painting and Design
-- **Address**: 63 Gristmill Rd, Randolph, NJ 07869
-- **Phone**: TBD
+- **Location**: Randolph, NJ (city and state only; no street address or ZIP)
+- **Phone**: (973) 462-7310
 
 ### Service Areas
 
@@ -285,8 +286,8 @@ images: {
 
 ## Checklist
 
-- [ ] Update phone number when available
-- [ ] Add og-image.jpg to public folder
+- [x] Update phone number ((973) 462-7310)
+- [ ] Add og-image.jpg to public folder (referenced in `app/layout.tsx`, currently 404 in production)
 - [ ] Verify Google Search Console
 - [ ] Submit sitemap
 - [ ] Add Google Business Profile

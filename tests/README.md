@@ -6,20 +6,24 @@ This project uses Playwright for comprehensive E2E testing. The test suite cover
 
 ## Test Suite Summary
 
-| File | Test Count | Coverage |
-|------|------------|----------|
-| `e2e/smoke.spec.ts` | 10 | All pages load, no console errors |
-| `e2e/navigation.spec.ts` | 15 | Desktop nav, mobile menu, all routes |
-| `e2e/pages.spec.ts` | 20 | Page headings, sections render |
-| `e2e/cta.spec.ts` | 12 | All CTA buttons navigate correctly |
-| `home.spec.ts` | 17 | Hero, services, WhyCMG, CTA |
-| `services.spec.ts` | 22 | Hub + 4 subpages |
-| `gallery.spec.ts` | 18 | Filters, grid, lightbox modal |
-| `contact.spec.ts` | 22 | Form fields, validation, submission |
-| `about.spec.ts` | 15 | Stats, story, values, CTA |
-| `components.spec.ts` | 15 | Header, Footer, BackToTop |
+Counts are per Playwright project (each test runs on `chromium` and `mobile`).
 
-**Total: ~166 tests**
+| File | Tests | Coverage |
+|------|-------|----------|
+| `e2e/smoke.spec.ts` | 10 | All pages load, no console errors |
+| `e2e/navigation.spec.ts` | 14 | Desktop nav, mobile menu, all routes |
+| `e2e/pages.spec.ts` | 23 | Page headings, sections render |
+| `e2e/cta.spec.ts` | 11 | All CTA buttons navigate correctly |
+| `home.spec.ts` | 21 | Hero, services, WhyCMG, CTA |
+| `services.spec.ts` | 24 | Hub + 4 subpages |
+| `gallery.spec.ts` | 23 | Filters, grid, lightbox modal |
+| `contact.spec.ts` | 27 | Form fields, validation, submission (`/api/contact` is stubbed with `page.route`, so no email is sent) |
+| `about.spec.ts` | 29 | Story, process steps, recent work, service area, CTA |
+| `components.spec.ts` | 19 | Header, Footer, BackToTop |
+| `privacy.spec.ts` | 2 | Privacy page content and contact link; footer link navigates to `/privacy` |
+| `no-street-address.spec.ts` | 4 | Guard: no street address or ZIP on `/`, `/about`, `/contact`, `/privacy` |
+
+**Total: 207 tests x 2 projects = 414 test runs** (`npx playwright test --list`)
 
 ## Running Tests
 

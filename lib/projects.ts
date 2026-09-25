@@ -65,6 +65,7 @@ export const SERVICE_IMAGES = {
   'light-carpentry': { src: '/images/services/light-carpentry.webp', alt: 'Painted built-in cabinetry around a brick fireplace' },
 } as const;
 
+/** Home hero background. AI-generated, NOT a real CMG project: never caption or present it as one. */
 export const HERO_IMAGE = {
   src: '/images/hero-home.webp',
   alt: 'Freshly painted colonial home at golden hour',

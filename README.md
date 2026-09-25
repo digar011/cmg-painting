@@ -2,14 +2,17 @@
 
 Professional website for CMG Painting and Design, a painting and design services company serving Northern New Jersey.
 
+**Live:** https://cmgpaintinganddesign.com (Vercel, auto-deployed from `master`)
+
 ## Project Overview
 
 This is a Next.js 14 website built with TypeScript and Tailwind CSS. It features:
 - Modern, responsive design optimized for all devices
 - SEO-optimized pages with Schema.org markup
-- Sanity CMS integration for gallery management
-- Contact form with validation
-- Comprehensive Playwright E2E testing
+- Real project photography (21 projects in `lib/projects.ts`), with optional Sanity CMS for the gallery
+- Quote request form that emails the business via SMTP (Nodemailer)
+- Privacy Policy page (`/privacy`) for Meta lead ads
+- Comprehensive Playwright E2E testing (414 test runs across desktop and mobile)
 
 ## Tech Stack
 
@@ -33,7 +36,7 @@ This is a Next.js 14 website built with TypeScript and Tailwind CSS. It features
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/digar011/cmg-painting.git
 cd cmg-painting
 ```
 
@@ -67,9 +70,16 @@ npm run build
 
 ### Testing
 
-Run all Playwright tests:
+Install browsers (first time), then run all Playwright tests:
 ```bash
+npx playwright install --with-deps
 npm test
+```
+
+Typecheck and lint:
+```bash
+npx tsc --noEmit
+npm run lint
 ```
 
 Run tests with UI:
@@ -98,7 +108,8 @@ cmg-painting/
 │   │   ├── exterior-painting/
 │   │   ├── powerwashing/
 │   │   └── light-carpentry/
-│   ├── api/contact/         # Contact form API
+│   ├── privacy/             # Privacy Policy page
+│   ├── api/contact/         # Contact form API (SMTP email)
 │   ├── sitemap.ts           # Dynamic sitemap
 │   └── robots.ts            # Robots configuration
 ├── components/
@@ -107,7 +118,8 @@ cmg-painting/
 │   ├── ui/                  # Reusable UI components
 │   └── forms/               # Form components
 ├── lib/
-│   └── constants.ts         # Site configuration
+│   ├── constants.ts         # Business info, nav, services, service towns
+│   └── projects.ts          # Real project photos, service images, hero image
 ├── sanity/                  # Sanity CMS configuration
 │   ├── schemas/             # Content schemas
 │   └── lib/                 # Sanity client & queries
@@ -115,20 +127,35 @@ cmg-painting/
 │   ├── e2e/                 # E2E smoke & navigation tests
 │   └── *.spec.ts            # Feature tests
 ├── docs/                    # Documentation
-└── public/                  # Static assets
+├── public/images/           # projects/, services/, hero-home.webp
+└── vercel.json              # Vercel framework config
 ```
 
 ## Environment Variables
 
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `NEXT_PUBLIC_SITE_URL` | Production site URL | Yes |
-| `NEXT_PUBLIC_SANITY_PROJECT_ID` | Sanity project ID | For CMS |
-| `NEXT_PUBLIC_SANITY_DATASET` | Sanity dataset name | For CMS |
-| `SMTP_HOST` | Email SMTP host | For contact form |
-| `SMTP_PORT` | Email SMTP port | For contact form |
-| `SMTP_USER` | Email SMTP user | For contact form |
-| `SMTP_PASS` | Email SMTP password | For contact form |
+Copy `.env.local.example` to `.env.local`. Every variable is optional locally; the site degrades gracefully.
+
+| Variable | Description | Default / behavior when unset |
+|----------|-------------|-------------------------------|
+| `NEXT_PUBLIC_SITE_URL` | Canonical URL for metadata, JSON-LD, sitemap | `https://cmgpaintinganddesign.com` |
+| `NEXT_PUBLIC_SANITY_PROJECT_ID` | Sanity project ID | Gallery uses `lib/projects.ts` |
+| `NEXT_PUBLIC_SANITY_DATASET` | Sanity dataset | `production` |
+| `NEXT_PUBLIC_SANITY_API_VERSION` | Sanity API version | `2024-01-01` |
+| `SMTP_HOST` | SMTP server | Contact API returns 503 ("please call") |
+| `SMTP_PORT` | SMTP port (465 = implicit TLS) | `465` |
+| `SMTP_USER` | SMTP login | Contact API returns 503 |
+| `SMTP_PASS` | SMTP password | Contact API returns 503 |
+| `SMTP_FROM` | Sender address | `SMTP_USER` |
+| `CONTACT_EMAIL` | Where quote requests are delivered | Business email in `lib/constants.ts` |
+
+Production (Vercel) currently sets `NEXT_PUBLIC_SITE_URL`, `SMTP_*` and `CONTACT_EMAIL`. Sanity is not configured in production, so the gallery serves the photos in `lib/projects.ts`.
+
+## Deployment
+
+- Hosted on **Vercel** (project `cmg-painting`, `vercel.json` declares Next.js).
+- Merging to `master` deploys production; pull requests get preview deployments.
+- Domain `cmgpaintinganddesign.com` is registered at GoDaddy with DNS pointed to Vercel; HTTPS is issued by Vercel.
+- Set or change env vars in the Vercel dashboard, then redeploy.
 
 ## Scripts
 
@@ -145,8 +172,9 @@ cmg-painting/
 ## Business Information
 
 - **Company**: CMG Painting and Design
+- **Phone**: (973) 462-7310
 - **Email**: CMGpaintinganddesign@hotmail.com
-- **Address**: 63 Gristmill Rd, Randolph, NJ 07869
+- **Location**: Randolph, NJ (city and state only; never publish a street address or ZIP)
 - **Facebook**: https://www.facebook.com/CMGPaintinganddesign/
 - **Service Areas**: Morris, Essex, Union, Sussex Counties (NJ)
 
@@ -163,6 +191,11 @@ cmg-painting/
 - [Gallery/Sanity Guide](docs/GALLERY-GUIDE.md)
 - [Component Guide](docs/COMPONENT-GUIDE.md)
 - [SEO Guide](docs/SEO-GUIDE.md)
+- [Test Suite Overview](tests/README.md)
+
+## Marketing
+
+Meta (Facebook/Instagram) ads plan, ad copy and creatives are kept outside this repo in the owner's local `cmg/marketing/meta-ads` folder. Not launched yet (budget and ad account pending). The site-side prerequisite, `/privacy`, is live.
 
 ## License
 
