@@ -5,12 +5,11 @@ export const SITE_CONFIG = {
   tagline: 'Professional Painting & Design Services',
   phone: '(973) 462-7310',
   email: 'CMGpaintinganddesign@hotmail.com',
+  // Owner rule: never publish a street address or ZIP — city and state only.
   address: {
-    street: '63 Gristmill Rd',
     city: 'Randolph',
     state: 'NJ',
-    zip: '07869',
-    full: '63 Gristmill Rd, Randolph, NJ 07869',
+    full: 'Randolph, NJ',
   },
   counties: ['Morris County', 'Essex County', 'Union County', 'Sussex County'],
   social: {
