@@ -14,6 +14,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - About page SEO: fixed the duplicated brand in the `<title>` caused by the root title template, rewrote the meta description, added a canonical URL and Open Graph overrides, and extended the JSON-LD to an `@graph` with `AboutPage` (`mainEntity`, `primaryImageOfPage`) and `BreadcrumbList`.
 - `tel:` link on the About CTA now uses digits only.
 
+### Changed
+
+- Removed the street address and ZIP from the site and structured data — city and state only. **Why:** owner rule (never publish a business street address). **Outcome:** guard test on /, /about, /contact, /privacy.
+
 ### Added
 
 - Privacy Policy page (`/privacy`), linked in the footer and sitemap. **Why:** Meta Instant Form lead ads require a privacy policy URL. **Outcome:** 2 E2E tests.
