@@ -8,8 +8,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- **About page rewrite** (`app/about/page.tsx`). What: replaced generic copy with a specific, fact-checked story: locally owned Randolph, NJ company, more than a decade in business, residential and commercial work (senior-living, offices, schools, auto dealerships), older-home exterior work, and an owner-run note. Added a five-step "What to Expect on Every Job" section (walkthrough and written proposal, protection, preparation, Sherwin-Williams/Benjamin Moore two-coat finish, daily cleanup and labeled touch-up paint), a real-project strip linking to the gallery, a service-area section with documented towns per county, and an email link in the CTA. Replaced the "Insert Team Photo" placeholder with a real project photo. Why: the old page had placeholder content and unsupported claims ("100% Fully Insured", "5★ Customer Service"). All new facts come from CMG's own proposals and records. Outcome: a more specific, trustworthy About page. Lint, typecheck and build are clean, and all 395 Playwright tests pass (chromium and mobile).
+- About page SEO: fixed the duplicated brand in the `<title>` caused by the root title template, rewrote the meta description, added a canonical URL and Open Graph overrides, and extended the JSON-LD to an `@graph` with `AboutPage` (`mainEntity`, `primaryImageOfPage`) and `BreadcrumbList`.
+- `tel:` link on the About CTA now uses digits only.
+
 ### Added
-- Privacy Policy page (`/privacy`), linked in the footer and sitemap. **Why:** Meta Instant Form lead ads require a privacy policy URL. **Outcome:** page live after merge; 2 E2E tests.
+
+- Privacy Policy page (`/privacy`), linked in the footer and sitemap. **Why:** Meta Instant Form lead ads require a privacy policy URL. **Outcome:** 2 E2E tests.
+- `SERVICE_TOWNS` in `lib/constants.ts`: towns with completed CMG projects, grouped by county.
+- New About page Playwright tests: process steps, recent work, service area, and CTA link targets.
+
+---
 
 ## [0.1.0] - 2026-02-28
 
