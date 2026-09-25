@@ -216,7 +216,7 @@ Full-screen hero section for home page.
 **Location**: `components/sections/Hero.tsx`
 
 **Features**:
-- Gradient background (image placeholder)
+- Full-bleed background image (`HERO_IMAGE` from `lib/projects.ts`, AI-generated) over a gradient fallback
 - Main heading
 - Subheading
 - Primary and secondary CTAs
@@ -224,6 +224,7 @@ Full-screen hero section for home page.
 
 **Test IDs**:
 - `home-hero` - Section wrapper
+- `hero-image` - Background image
 - `hero-heading` - Main h1
 - `hero-cta-primary` - Get Quote button
 - `hero-cta-secondary` - View Work button

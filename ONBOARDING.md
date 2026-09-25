@@ -23,8 +23,9 @@ Welcome to the CMG Painting and Design website project. This guide will help you
 
 This is a professional marketing website for **CMG Painting and Design**, a painting and design services company serving Northern New Jersey (Morris, Essex, Union, and Sussex counties). The site is built with Next.js 14 using the App Router, TypeScript, and Tailwind CSS. Gallery content is managed through Sanity CMS.
 
-**Business contact**: CMGpaintinganddesign@hotmail.com
-**Address**: 63 Gristmill Rd, Randolph, NJ 07869
+**Live site**: https://cmgpaintinganddesign.com (Vercel, deploys from `master`)
+**Business contact**: (973) 462-7310, CMGpaintinganddesign@hotmail.com
+**Location**: Randolph, NJ. Owner rule: city and state only; never publish a street address or ZIP.
 
 ---
 
@@ -48,7 +49,7 @@ Optional (for CMS work):
 ### Step 1: Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/digar011/cmg-painting.git
 cd cmg-painting
 ```
 
@@ -73,12 +74,13 @@ Edit `.env.local` and fill in the values:
 | `NEXT_PUBLIC_SANITY_DATASET` | Sanity dashboard | Usually `production` |
 | `NEXT_PUBLIC_SANITY_API_VERSION` | Leave as `2024-01-01` | Sanity API version |
 | `SMTP_HOST` | Your email provider | Required only for contact form emails |
-| `SMTP_PORT` | Your email provider | Typically `587` for TLS |
+| `SMTP_PORT` | Your email provider | Defaults to `465` (implicit TLS) |
 | `SMTP_USER` | Your email account | SMTP login |
 | `SMTP_PASS` | Your email account | SMTP password |
+| `SMTP_FROM` | Your email account | Sender address; defaults to `SMTP_USER` |
 | `CONTACT_EMAIL` | Business email | Where form submissions are sent |
 
-**Note**: The site runs without Sanity or SMTP configured. The gallery will show placeholder projects and the contact form will log submissions to the console instead of sending emails.
+**Note**: The site runs without Sanity or SMTP configured. The gallery shows the real projects in `lib/projects.ts`, and the contact API returns a 503 asking the visitor to call instead of sending email.
 
 ### Step 4: Start Development Server
 
@@ -145,6 +147,7 @@ cmg-painting/
 |   |   |-- page.tsx             # Server: fetches Sanity data
 |   |   |-- GalleryClient.tsx    # Client: filtering, lightbox
 |   |-- services/                # Services hub + 4 subpages
+|   |-- privacy/page.tsx         # Privacy Policy (required for Meta lead ads)
 |   |-- api/contact/route.ts     # Contact form API endpoint
 |   |-- sitemap.ts               # Dynamic XML sitemap
 |   |-- robots.ts                # robots.txt configuration
@@ -163,7 +166,9 @@ cmg-painting/
 |   |-- ui/ProjectCard.tsx       # Gallery project card
 |   |-- ui/BackToTop.tsx         # Back-to-top floating button
 |
-|-- lib/constants.ts             # Site config, nav links, services data
+|-- lib/constants.ts             # Site config, nav links, services, SERVICE_TOWNS
+|-- lib/projects.ts              # Real project photos, service images, HERO_IMAGE (AI-generated)
+|-- public/images/               # projects/ (21 WebP, EXIF stripped), services/, hero-home.webp
 |
 |-- sanity/                      # Sanity CMS configuration
 |   |-- env.ts                   # Environment variable exports
@@ -181,6 +186,8 @@ cmg-painting/
 |   |-- contact.spec.ts          # Contact form tests
 |   |-- about.spec.ts            # About page tests
 |   |-- components.spec.ts       # Component behavior tests
+|   |-- privacy.spec.ts          # Privacy page tests
+|   |-- no-street-address.spec.ts # Guard: no street address/ZIP published
 |
 |-- docs/                        # Documentation
 |   |-- COMPONENT-GUIDE.md       # All components, props, usage
@@ -209,9 +216,9 @@ cmg-painting/
 
 1. Create a feature branch from `master`.
 2. Make your changes.
-3. Run `npm run lint` to check for lint errors.
+3. Run `npm run lint` and `npx tsc --noEmit`.
 4. Run `npm test` to verify tests pass.
-5. Create a pull request.
+5. Commit with Conventional Commits and open a pull request to `master`. Merging deploys production.
 
 ### Styling
 
@@ -244,7 +251,7 @@ cmg-painting/
 
 ## Testing
 
-The project uses **Playwright** for end-to-end testing. There are approximately 166 tests covering all pages, components, navigation, forms, and responsive behavior.
+The project uses **Playwright** for end-to-end testing. There are 207 tests (414 runs across the two projects) covering all pages, components, navigation, forms, and responsive behavior.
 
 ### Quick Start
 
@@ -281,7 +288,7 @@ For more details, see `docs/testing/playwright.md`.
 
 ## Sanity CMS
 
-The gallery is powered by **Sanity CMS**. In development without Sanity configured, placeholder projects are displayed.
+The gallery shows the real projects in `lib/projects.ts`. Sanity CMS is wired up but optional: it is queried only in production builds with `NEXT_PUBLIC_SANITY_PROJECT_ID` and `NEXT_PUBLIC_SANITY_DATASET` set, and its documents replace the local list when any exist. Sanity is not configured in production yet.
 
 ### Accessing the Studio
 
@@ -308,20 +315,14 @@ For the full gallery management guide, see `docs/GALLERY-GUIDE.md`.
 
 ## Deployment
 
-The site is configured for deployment on **Vercel** (or any Next.js-compatible host).
-
-### Vercel Deployment
-
-1. Connect the Git repository to Vercel.
-2. Set all environment variables from `.env.local.example` in the Vercel dashboard.
-3. Deploy. Vercel auto-detects the Next.js framework.
+The site is live on **Vercel** at https://cmgpaintinganddesign.com (project `cmg-painting`; `vercel.json` declares Next.js). Merging to `master` deploys production; pull requests get preview URLs. The domain is registered at GoDaddy with DNS pointed to Vercel, which issues the HTTPS certificate.
 
 ### Environment Variables for Production
 
 Ensure all variables from `.env.local.example` are set in the production environment:
 - `NEXT_PUBLIC_SITE_URL` -- the production domain
 - `NEXT_PUBLIC_SANITY_PROJECT_ID` and `NEXT_PUBLIC_SANITY_DATASET` -- for gallery
-- SMTP variables -- for contact form emails
+- `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM` -- for contact form emails (set in production)
 - `CONTACT_EMAIL` -- destination for form submissions
 
 ---
@@ -330,7 +331,11 @@ Ensure all variables from `.env.local.example` are set in the production environ
 
 ### Update Business Information
 
-Edit `lib/constants.ts`. All pages and components reference this file for phone, email, address, service areas, and navigation links.
+Edit `lib/constants.ts`. All pages and components reference this file for phone, email, city/state, service areas, and navigation links. Never add a street address or ZIP; `tests/no-street-address.spec.ts` will fail.
+
+### Add or Replace Project Photos
+
+Export as WebP with EXIF/GPS metadata stripped into `public/images/projects/`, then add an entry in `lib/projects.ts`. Captions describe only what the photo shows and keep the location general. Never present the AI-generated hero image as a real project.
 
 ### Update SEO Metadata
 
@@ -354,13 +359,13 @@ Update `tailwind.config.ts` under `theme.extend.colors` and the CSS variables in
 - Delete `node_modules` and `package-lock.json`, then run `npm install`.
 - Check `.env.local` exists (copy from `.env.local.example`).
 
-### Gallery Shows Placeholder Projects
+### Gallery Does Not Show Sanity Content
 
-This is expected behavior when Sanity is not configured or in development mode. Set `NEXT_PUBLIC_SANITY_PROJECT_ID` and `NEXT_PUBLIC_SANITY_DATASET` in `.env.local` for live data.
+Sanity is only queried in production builds (`NODE_ENV=production`) with `NEXT_PUBLIC_SANITY_PROJECT_ID` and `NEXT_PUBLIC_SANITY_DATASET` set. Otherwise the gallery uses `lib/projects.ts`.
 
-### Contact Form Does Not Send Emails
+### Contact Form Returns "Please call us"
 
-The contact form API route currently logs to console. To enable email sending, configure the SMTP environment variables and uncomment the Nodemailer transport in `app/api/contact/route.ts`.
+`/api/contact` returns 503 when `SMTP_HOST`, `SMTP_USER` or `SMTP_PASS` is missing. Set them in `.env.local` (or Vercel) to send email.
 
 ### Tests Fail
 
