@@ -31,7 +31,7 @@ export default function BackToTop() {
     <button
       onClick={scrollToTop}
       data-testid="back-to-top"
-      className="fixed bottom-6 left-6 z-40 flex items-center gap-2 px-4 py-2 text-sm font-medium text-cmg-charcoal bg-cmg-white/90 backdrop-blur-sm border border-cmg-light rounded-full shadow-glass-md hover:bg-cmg-white hover:shadow-glass-lg transition-all duration-200 hover:-translate-y-0.5"
+      className="fixed bottom-5 right-5 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-cmg-ink text-white shadow-glass-xl transition-transform duration-200 hover:-translate-y-0.5"
       aria-label="Back to top"
     >
       <svg
@@ -39,6 +39,7 @@ export default function BackToTop() {
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
+        aria-hidden="true"
       >
         <path
           strokeLinecap="round"
@@ -47,7 +48,6 @@ export default function BackToTop() {
           d="M5 10l7-7m0 0l7 7m-7-7v18"
         />
       </svg>
-      Back to top
     </button>
   );
 }

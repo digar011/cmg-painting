@@ -8,6 +8,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- **Site redesign** (branch `feature/site-redesign`). **Why:** the owner asked for a more modern site that doesn't look generic before the first social posts. The old site used template patterns: purple-to-blue gradient banners, glass cards, all-caps eyebrows, icon-card grids, "Ready to Get Started?" bands. **Outcome:**
+  - New system: warm paper ground, navy-black ink, the logo's royal blue as the one accent; Red Hat Display/Text in place of Inter; one 1200px content column; one button style with hover/press motion; reduced-motion support.
+  - Home rebuilt around real CMG work: a split hero with the Dutch colonial job, services as photo rows, a Cape Cod before/after where the finished photo "develops" from grey once on screen, a recent-projects grid, a dark "How a CMG job runs" band (four steps from CMG's proposals, owner named), a service-area type section, and a closing band with a photo.
+  - Header: opaque sticky bar, Services mega panel with photo card, phone number, full-screen mobile menu, skip link. Desktop/mobile is now switched with CSS, which fixes the pre-existing mobile header-CTA test failure caused by a JS `isMobile` flip after hydration.
+  - Inner pages: gradient banners replaced by a shared `PageHero` (service pages show their real photo in the hero); closing bands replaced by the shared photo `CTA`; services hub rebuilt as alternating photo rows; inner pages aligned to the new column.
+  - Copy: h1s now name the category ("House painting in Northern New Jersey", "Request a free painting estimate"); one main action wording, "Request a free estimate", everywhere; filler ("transform", "flawless", "stand the test of time") replaced with facts from CMG's proposals; form errors say what to type.
+  - Removed the unverified "Fully Insured" claim from the home page and footer (project rule: fact-checked copy only). Removed the unused `ServiceCard`/`ProjectCard` components.
+  - Tests updated for the new copy and header; 421/421 passing on a production build.
+
 ### Added
 
 - **Link-preview image and favicons** (`public/og-image.jpg` 1200x630, `favicon.ico` 16/32/48, `apple-touch-icon.png` 180, `icon.png` 512). **Why:** `app/layout.tsx` referenced them but they 404'd, so links shared on Facebook showed no picture before the first social post (Mon Nov 23). **Outcome:** the share card shows a real CMG exterior job beside the CMG logo, service line, counties and phone; browser tabs and home-screen bookmarks show the CMG mark. Built from the owner's logo file and a real project photo. Guarded by `tests/share-assets.spec.ts`.

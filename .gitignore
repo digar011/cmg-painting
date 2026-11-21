@@ -52,3 +52,6 @@ next-env.d.ts
 # Logs
 logs
 *.log
+
+# Design-check artifacts (screenshots, gate state)
+.taste-skill/

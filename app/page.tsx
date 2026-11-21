@@ -6,6 +6,9 @@ import Hero from '@/components/sections/Hero';
 import ServicesOverview from '@/components/sections/ServicesOverview';
 import WhyCMG from '@/components/sections/WhyCMG';
 import CTA from '@/components/sections/CTA';
+import BeforeAfter from '@/components/sections/BeforeAfter';
+import RecentWork from '@/components/sections/RecentWork';
+import ServiceArea from '@/components/sections/ServiceArea';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://cmgpaintinganddesign.com';
 const pageTitle = 'CMG Painting and Design | Professional Painting Services in Morris, Essex, Union & Sussex Counties, NJ';
@@ -42,10 +45,13 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeSchema) }}
       />
       <Header />
-      <main>
+      <main id="main">
         <Hero />
         <ServicesOverview />
+        <BeforeAfter />
+        <RecentWork />
         <WhyCMG />
+        <ServiceArea />
         <CTA />
       </main>
       <Footer />

@@ -4,16 +4,16 @@ import { SITE_CONFIG } from '@/lib/constants';
 
 const footerLinks = {
   services: [
-    { name: 'Interior Painting', href: '/services/interior-painting' },
-    { name: 'Exterior Painting', href: '/services/exterior-painting' },
+    { name: 'Interior painting', href: '/services/interior-painting' },
+    { name: 'Exterior painting', href: '/services/exterior-painting' },
     { name: 'Powerwashing', href: '/services/powerwashing' },
-    { name: 'Light Carpentry', href: '/services/light-carpentry' },
+    { name: 'Light carpentry', href: '/services/light-carpentry' },
   ],
   company: [
-    { name: 'About Us', href: '/about' },
+    { name: 'About us', href: '/about' },
     { name: 'Gallery', href: '/gallery' },
     { name: 'Contact', href: '/contact' },
-    { name: 'Privacy Policy', href: '/privacy' },
+    { name: 'Privacy policy', href: '/privacy' },
   ],
   areas: SITE_CONFIG.counties.map((county) => ({
     name: county.replace(' County', ' Co.'),
@@ -39,52 +39,48 @@ const socialLinks = (Object.keys(SOCIAL_ICONS) as (keyof typeof SOCIAL_ICONS)[])
   .filter((link) => link.href);
 
 export default function Footer() {
+  const tel = `tel:${SITE_CONFIG.phone.replace(/\D/g, '')}`;
+  const columns = [
+    { title: 'Services', testId: 'footer-services', links: footerLinks.services },
+    { title: 'Company', testId: 'footer-company', links: footerLinks.company },
+    { title: 'Service areas', testId: 'footer-areas', links: footerLinks.areas },
+  ];
+
   return (
-    <footer className="bg-cmg-charcoal text-cmg-white" data-testid="site-footer">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* Brand Column */}
-          <div className="lg:col-span-1">
-            <div className="mb-6" data-testid="footer-logo">
-              <Logo size="small" variant="white" />
+    <footer className="border-t border-cmg-line bg-cmg-sand text-cmg-ink" data-testid="site-footer">
+      <div className="wrap py-16">
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-6">
+          <div className="lg:col-span-4">
+            <div data-testid="footer-logo">
+              <Logo />
             </div>
-            <p className="text-cmg-taupe text-sm leading-relaxed mb-6">
-              Professional painting and design services across Morris, Essex,
-              Union, and Sussex counties, New Jersey.
-            </p>
-            <div className="space-y-2 text-sm">
-              <p className="text-cmg-taupe flex items-center gap-2">
-                <svg className="w-4 h-4 text-cmg-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-                {SITE_CONFIG.phone}
-              </p>
-              <p className="text-cmg-taupe flex items-center gap-2">
-                <svg className="w-4 h-4 text-cmg-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                {SITE_CONFIG.email}
-              </p>
-              <p className="text-cmg-taupe flex items-center gap-2">
-                <svg className="w-4 h-4 text-cmg-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
+            <ul className="mt-6 space-y-1 text-base">
+              <li>
+                <a href={tel} className="link-draw inline-flex min-h-[44px] items-center text-cmg-ink">
+                  {SITE_CONFIG.phone}
+                </a>
+              </li>
+              <li>
+                <a href={`mailto:${SITE_CONFIG.email}`} className="link-draw inline-flex min-h-[44px] items-center break-all text-cmg-ink">
+                  {SITE_CONFIG.email}
+                </a>
+              </li>
+              <li className="flex min-h-[44px] items-center text-cmg-gray">
                 {SITE_CONFIG.address.city}, {SITE_CONFIG.address.state}
-              </p>
-            </div>
-            <div className="mt-6 flex items-center gap-4" data-testid="footer-social">
+              </li>
+            </ul>
+            <div className="mt-4 flex items-center gap-3" data-testid="footer-social">
               {socialLinks.map((social) => (
                 <a
                   key={social.name}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-cmg-gray text-cmg-taupe transition-colors duration-200 hover:border-cmg-blue hover:text-cmg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cmg-blue"
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full ring-1 ring-inset ring-cmg-ink/20 text-cmg-ink transition-colors duration-200 hover:bg-cmg-royal hover:text-white hover:ring-cmg-royal"
                   aria-label={`CMG Painting and Design on ${social.name}`}
                   data-testid={`footer-social-${social.name.toLowerCase()}`}
                 >
-                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                     <path d={social.icon} />
                   </svg>
                 </a>
@@ -92,79 +88,27 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Services Column */}
-          <div data-testid="footer-services">
-            <h4 className="text-cmg-blue font-semibold mb-4 uppercase tracking-wider text-sm">
-              Services
-            </h4>
-            <ul className="space-y-3">
-              {footerLinks.services.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-cmg-taupe hover:text-cmg-white transition-colors duration-200 text-sm"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Company Column */}
-          <div data-testid="footer-company">
-            <h4 className="text-cmg-blue font-semibold mb-4 uppercase tracking-wider text-sm">
-              Company
-            </h4>
-            <ul className="space-y-3">
-              {footerLinks.company.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-cmg-taupe hover:text-cmg-white transition-colors duration-200 text-sm"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Service Areas Column */}
-          <div data-testid="footer-areas">
-            <h4 className="text-cmg-blue font-semibold mb-4 uppercase tracking-wider text-sm">
-              Service Areas
-            </h4>
-            <ul className="space-y-3">
-              {footerLinks.areas.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-cmg-taupe hover:text-cmg-white transition-colors duration-200 text-sm"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-6 pt-6 border-t border-cmg-gray">
-              <p className="text-xs text-cmg-taupe">
-                Fully Insured
-                <br />
-                Quality Guaranteed
-              </p>
+          {columns.map((col, i) => (
+            <div key={col.title} data-testid={col.testId} className={i === 0 ? 'lg:col-span-3 lg:col-start-6' : 'lg:col-span-2'}>
+              <h2 className="font-sans text-sm font-medium leading-snug tracking-normal text-cmg-gray">
+                {col.title}
+              </h2>
+              <ul className="mt-3">
+                {col.links.map((link) => (
+                  <li key={link.name}>
+                    <Link href={link.href} className="link-draw inline-flex min-h-[44px] items-center text-base text-cmg-ink">
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
+          ))}
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-cmg-gray flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-cmg-taupe text-sm">
-            &copy; {new Date().getFullYear()} CMG Painting and Design. All rights reserved.
-          </p>
-          <p className="text-cmg-taupe text-sm">
-            Serving Northern New Jersey
-          </p>
+        <div className="mt-12 flex flex-col justify-between gap-2 border-t border-cmg-ink/15 pt-6 text-sm text-cmg-gray sm:flex-row">
+          <p>&copy; {new Date().getFullYear()} CMG Painting and Design LLC</p>
+          <p>Serving Morris, Essex, Union and Sussex counties, NJ</p>
         </div>
       </div>
     </footer>

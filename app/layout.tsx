@@ -1,11 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Red_Hat_Display, Red_Hat_Text } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import BackToTop from "@/components/ui/BackToTop";
 import { SITE_CONFIG } from "@/lib/constants";
 
-const inter = Inter({ subsets: ["latin"] });
+const display = Red_Hat_Display({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-display", display: "swap" });
+const text = Red_Hat_Text({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-text", display: "swap" });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://cmgpaintinganddesign.com';
 
@@ -84,7 +85,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0B3FA8",
+  themeColor: "#F4F0E8",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -129,8 +130,8 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" className={`${display.variable} ${text.variable}`}>
+      <body className="font-sans">
         <Script
           id="schema-local-business"
           type="application/ld+json"

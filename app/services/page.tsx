@@ -1,9 +1,13 @@
+import Image from 'next/image';
 import { Metadata } from 'next';
 import Script from 'next/script';
 import Link from 'next/link';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { SERVICES } from '@/lib/constants';
+import { SERVICE_IMAGES } from '@/lib/projects';
+import PageHero from '@/components/sections/PageHero';
+import CTA from '@/components/sections/CTA';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://cmgpaintinganddesign.com';
 const pageTitle = 'Our Services | CMG Painting and Design';
@@ -19,28 +23,28 @@ const serviceDetails = [
   {
     id: 'interior-painting',
     title: 'Interior Painting',
-    description: 'Transform your indoor spaces with expert interior painting services. We handle walls, ceilings, trim, doors, cabinets, and more with premium finishes that last.',
+    description: 'Walls, ceilings, trim, doors and staircases, in homes and commercial spaces. Furniture and floors are covered first, and every surface gets two finish coats.',
     features: ['Wall & ceiling painting', 'Trim & molding', 'Cabinet refinishing', 'Accent walls', 'Color consultation'],
     href: '/services/interior-painting',
   },
   {
     id: 'exterior-painting',
     title: 'Exterior Painting',
-    description: 'Protect and beautify your home\'s exterior with professional painting services. We use weather-resistant coatings that stand the test of time.',
+    description: 'Clapboard, cedar shingle, trim and doors, scraped, primed and repainted. We do a lot of older homes, where the prep matters most.',
     features: ['House painting', 'Deck staining', 'Fence painting', 'Shutters & trim', 'Surface preparation'],
     href: '/services/exterior-painting',
   },
   {
     id: 'powerwashing',
     title: 'Powerwashing',
-    description: 'Restore surfaces to like-new condition with professional powerwashing. Perfect for decks, patios, driveways, siding, and more.',
+    description: 'Decks, porches, patios, driveways and siding washed clean, then stained, sealed or prepped for paint.',
     features: ['Deck cleaning', 'Driveway cleaning', 'Siding wash', 'Patio restoration', 'Pre-paint prep'],
     href: '/services/powerwashing',
   },
   {
     id: 'light-carpentry',
     title: 'Light Carpentry',
-    description: 'Quality carpentry work including trim installation, crown molding, baseboards, door frames, and minor repairs to complement your painting project.',
+    description: 'Trim, crown molding, baseboards, door frames and small repairs, done before the paint goes on so the job looks finished.',
     features: ['Crown molding', 'Baseboard installation', 'Door & window trim', 'Wainscoting', 'Minor repairs'],
     href: '/services/light-carpentry',
   },
@@ -68,81 +72,57 @@ export default function ServicesPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesSchema) }}
       />
       <Header />
-      <main>
+      <main id="main">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-cmg-charcoal via-cmg-royal to-cmg-blue py-20">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-            <p className="text-cmg-taupe font-semibold uppercase tracking-widest mb-4">
-              What We Offer
-            </p>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-cmg-white mb-6">
-              Our Services
-            </h1>
-            <p className="text-lg sm:text-xl text-cmg-light max-w-3xl mx-auto">
-              Professional painting and design services tailored to your needs.
-              From interior transformations to exterior protection, we deliver
-              quality craftsmanship on every project.
-            </p>
-          </div>
-        </section>
+        <PageHero
+          eyebrow={{ label: 'Services' }}
+          title="Painting and repair services in Northern NJ"
+          lead="Interior and exterior painting, powerwashing and light carpentry for homes and businesses in Morris, Essex, Union and Sussex counties."
+          image={{ src: '/images/projects/colonial-exterior.webp', alt: 'Two-story colonial repainted blue-gray with white trim by CMG' }}
+        />
 
-        {/* Services Grid */}
-        <section className="py-20 bg-cmg-off-white" data-testid="services-list">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-8">
-              {serviceDetails.map((service) => (
-                <div
+        {/* Services: one row each, with a photograph of CMG work */}
+        <section className="py-20 lg:py-28" data-testid="services-list">
+          <div className="wrap space-y-20 lg:space-y-28">
+            {serviceDetails.map((service, i) => {
+              const img = SERVICE_IMAGES[service.id as keyof typeof SERVICE_IMAGES];
+              return (
+                <article
                   key={service.id}
                   data-testid={`service-${service.id}`}
-                  className="bg-cmg-white border border-cmg-light rounded-xl p-8 hover:shadow-glass-lg transition-shadow duration-300"
+                  className="grid items-center gap-8 lg:grid-cols-12 lg:gap-6"
                 >
-                  <h2 className="text-2xl font-bold text-cmg-charcoal mb-4">
-                    {service.title}
-                  </h2>
-                  <p className="text-cmg-gray mb-6">{service.description}</p>
-                  <ul className="space-y-2 mb-6">
-                    {service.features.map((feature) => (
-                      <li key={feature} className="flex items-center gap-2 text-cmg-gray text-sm">
-                        <svg className="w-5 h-5 text-cmg-royal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
                   <Link
                     href={service.href}
-                    className="inline-flex items-center font-semibold text-cmg-royal hover:text-cmg-blue transition-colors"
+                    className={`photo-zoom relative block aspect-[4/3] overflow-hidden rounded-frame lg:col-span-6 ${i % 2 ? 'lg:order-2 lg:col-start-7' : ''}`}
+                    tabIndex={-1}
+                    aria-hidden="true"
                   >
-                    Learn more
-                    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
+                    <Image src={img.src} alt="" fill sizes="(min-width: 1024px) 600px, 100vw" className="object-cover" />
                   </Link>
-                </div>
-              ))}
-            </div>
+                  <div className={`lg:col-span-5 ${i % 2 ? 'lg:order-1' : 'lg:col-start-8'}`}>
+                    <h2>{service.title}</h2>
+                    <p className="mt-4 text-lg text-cmg-gray">{service.description}</p>
+                    <ul className="mt-6 grid grid-cols-2 gap-x-6 border-t border-cmg-ink/15">
+                      {service.features.map((feature) => (
+                        <li key={feature} className="border-b border-cmg-ink/15 py-3 text-cmg-ink">
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link href={service.href} className="btn btn-secondary mt-8">
+                      See {service.title.toLowerCase()}
+                      <span aria-hidden="true" className="arrow">→</span>
+                    </Link>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-cmg-royal">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold text-cmg-white mb-4">
-              Ready to Get Started?
-            </h2>
-            <p className="text-lg text-cmg-light mb-8">
-              Contact us today for a free consultation and quote.
-            </p>
-            <Link
-              href="/contact"
-              data-testid="services-cta"
-              className="inline-flex items-center justify-center font-semibold rounded-md transition-all duration-200 bg-cmg-taupe text-cmg-charcoal hover:-translate-y-0.5 hover:shadow-glass-lg px-8 py-3.5 text-lg"
-            >
-              Get Free Quote
-            </Link>
-          </div>
-        </section>
+        <CTA heading="Free written estimates" primaryTestId="services-cta" secondaryTestId="services-cta-phone" testId="services-close" image={{ src: '/images/projects/victorian-porch-home.webp', alt: 'White Victorian home with a full front porch painted by CMG' }} />
       </main>
       <Footer />
     </>

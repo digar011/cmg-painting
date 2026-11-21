@@ -5,6 +5,9 @@ import Script from 'next/script';
 import Link from 'next/link';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import PageHero from '@/components/sections/PageHero';
+import { PRIMARY_ACTION } from '@/lib/copy';
+import CTA from '@/components/sections/CTA';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://cmgpaintinganddesign.com';
 const pageTitle = 'Exterior Painting Services | CMG Painting and Design';
@@ -65,50 +68,28 @@ export default function ExteriorPaintingPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
       <Header />
-      <main>
+      <main id="main">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-cmg-charcoal via-cmg-royal to-cmg-blue py-20">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <Link href="/services" className="inline-flex items-center text-cmg-taupe hover:text-cmg-white mb-6 transition-colors">
-              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              Back to Services
-            </Link>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-cmg-white mb-6">
-              Exterior Painting
-            </h1>
-            <p className="text-lg sm:text-xl text-cmg-light max-w-3xl">
-              Protect and beautify your home&apos;s exterior with professional painting
-              services using weather-resistant coatings that stand the test of time.
-            </p>
-          </div>
-        </section>
-
-        {/* Project photo */}
-        <section className="py-16 bg-cmg-off-white">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-cmg-light shadow-glass-md">
-              <Image
-                src={SERVICE_IMAGES['exterior-painting'].src}
-                alt={SERVICE_IMAGES['exterior-painting'].alt}
-                fill
-                sizes="(min-width: 1280px) 1216px, 100vw"
-                className="object-cover"
-                data-testid="service-image"
-              />
-            </div>
-          </div>
-        </section>
+        <PageHero
+          eyebrow={{ label: 'All services', href: '/services' }}
+          title="Exterior Painting"
+          lead="Clapboard, cedar shingle, trim, porches and doors, scraped, primed and repainted. Older homes are a big part of our work, from colonials to Victorian porch houses."
+          image={{ ...SERVICE_IMAGES['exterior-painting'], testId: 'service-image' }}
+        >
+          <Link href="/contact" className="btn btn-primary">
+            {PRIMARY_ACTION}
+            <span aria-hidden="true" className="arrow">→</span>
+          </Link>
+        </PageHero>
 
         {/* Features Section */}
         <section className="py-20 bg-cmg-white" data-testid="service-features">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold text-cmg-charcoal mb-4">
+          <div className="wrap">
+            <div className="mb-12 max-w-3xl">
+              <h2 className="text-cmg-charcoal mb-4">
                 What We Offer
               </h2>
-              <p className="text-cmg-gray max-w-2xl mx-auto">
+              <p className="text-lg text-cmg-gray max-w-2xl mt-4">
                 Comprehensive exterior painting services to protect and beautify your property.
               </p>
             </div>
@@ -116,7 +97,7 @@ export default function ExteriorPaintingPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {features.map((feature) => (
                 <div key={feature.title} className="bg-cmg-off-white rounded-xl p-6">
-                  <h3 className="text-lg font-bold text-cmg-charcoal mb-2">{feature.title}</h3>
+                  <h3 className="text-lg font-medium text-cmg-charcoal mb-2">{feature.title}</h3>
                   <p className="text-cmg-gray text-sm">{feature.description}</p>
                 </div>
               ))}
@@ -125,22 +106,7 @@ export default function ExteriorPaintingPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-cmg-royal">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold text-cmg-white mb-4">
-              Ready to Protect Your Exterior?
-            </h2>
-            <p className="text-lg text-cmg-light mb-8">
-              Contact us today for a free consultation and quote.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center font-semibold rounded-md transition-all duration-200 bg-cmg-taupe text-cmg-charcoal hover:-translate-y-0.5 hover:shadow-glass-lg px-8 py-3.5 text-lg"
-            >
-              Get Free Quote
-            </Link>
-          </div>
-        </section>
+        <CTA heading="Estimates for exterior painting" line="Tell us about the siding, trim and doors. We look at every side of the house and send a written proposal with one price." image={{ src: '/images/projects/victorian-porch-home.webp', alt: 'White Victorian home with a full front porch painted by CMG' }} />
       </main>
       <Footer />
     </>

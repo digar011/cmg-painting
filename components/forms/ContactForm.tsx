@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Button from '@/components/ui/Button';
+import { PRIMARY_ACTION } from '@/lib/copy';
 
 const serviceOptions = [
   'Interior Painting',
@@ -35,16 +36,16 @@ export default function ContactForm() {
     const newErrors: FormErrors = {};
 
     if (!formData.name.trim() || formData.name.trim().length < 2) {
-      newErrors.name = 'Please enter your full name';
+      newErrors.name = 'Write your name so we know who to ask for';
     }
 
     if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email address';
+      newErrors.email = 'Write an email address like name@example.com';
     }
 
     const phoneDigits = formData.phone.replace(/\D/g, '');
     if (!phoneDigits || phoneDigits.length < 10) {
-      newErrors.phone = 'Please enter a valid phone number';
+      newErrors.phone = 'Write a 10-digit phone number so we can call you back';
     }
 
     setErrors(newErrors);
@@ -104,9 +105,9 @@ export default function ContactForm() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="text-2xl font-bold text-cmg-charcoal mb-2">Thank You!</h3>
+        <h3 className="mb-2">Thank you. Your estimate request is in.</h3>
         <p className="text-cmg-gray">
-          We&apos;ve received your request and will be in touch within 24 hours.
+          We will call or email you to set up a walkthrough.
         </p>
       </div>
     );
@@ -136,8 +137,8 @@ export default function ContactForm() {
             data-testid="input-name"
             value={formData.name}
             onChange={handleChange}
-            className={`w-full px-4 py-3 rounded-lg border bg-cmg-white text-cmg-charcoal placeholder-cmg-gray/50 focus:outline-none focus:ring-2 focus:ring-cmg-royal focus:border-transparent transition-all ${
-              errors.name ? 'border-red-400' : 'border-cmg-light'
+            className={`w-full px-4 py-3 rounded-lg border bg-cmg-white text-cmg-charcoal placeholder-cmg-gray/70 focus:outline-none focus:ring-2 focus:ring-cmg-royal focus:border-transparent transition-all ${
+              errors.name ? 'border-red-400' : 'border-cmg-line'
             }`}
             placeholder="John Smith"
           />
@@ -156,8 +157,8 @@ export default function ContactForm() {
             data-testid="input-phone"
             value={formData.phone}
             onChange={handleChange}
-            className={`w-full px-4 py-3 rounded-lg border bg-cmg-white text-cmg-charcoal placeholder-cmg-gray/50 focus:outline-none focus:ring-2 focus:ring-cmg-royal focus:border-transparent transition-all ${
-              errors.phone ? 'border-red-400' : 'border-cmg-light'
+            className={`w-full px-4 py-3 rounded-lg border bg-cmg-white text-cmg-charcoal placeholder-cmg-gray/70 focus:outline-none focus:ring-2 focus:ring-cmg-royal focus:border-transparent transition-all ${
+              errors.phone ? 'border-red-400' : 'border-cmg-line'
             }`}
             placeholder="(555) 123-4567"
           />
@@ -178,8 +179,8 @@ export default function ContactForm() {
           data-testid="input-email"
           value={formData.email}
           onChange={handleChange}
-          className={`w-full px-4 py-3 rounded-lg border bg-cmg-white text-cmg-charcoal placeholder-cmg-gray/50 focus:outline-none focus:ring-2 focus:ring-cmg-royal focus:border-transparent transition-all ${
-            errors.email ? 'border-red-400' : 'border-cmg-light'
+          className={`w-full px-4 py-3 rounded-lg border bg-cmg-white text-cmg-charcoal placeholder-cmg-gray/70 focus:outline-none focus:ring-2 focus:ring-cmg-royal focus:border-transparent transition-all ${
+            errors.email ? 'border-red-400' : 'border-cmg-line'
           }`}
           placeholder="john@example.com"
         />
@@ -198,7 +199,7 @@ export default function ContactForm() {
           data-testid="input-service"
           value={formData.service}
           onChange={handleChange}
-          className="w-full px-4 py-3 rounded-lg border border-cmg-light bg-cmg-white text-cmg-charcoal focus:outline-none focus:ring-2 focus:ring-cmg-royal focus:border-transparent transition-all"
+          className="w-full px-4 py-3 rounded-lg border border-cmg-line bg-cmg-white text-cmg-charcoal focus:outline-none focus:ring-2 focus:ring-cmg-royal focus:border-transparent transition-all"
         >
           <option value="">Select a service...</option>
           {serviceOptions.map((option) => (
@@ -220,7 +221,7 @@ export default function ContactForm() {
           data-testid="input-message"
           value={formData.message}
           onChange={handleChange}
-          className="w-full px-4 py-3 rounded-lg border border-cmg-light bg-cmg-white text-cmg-charcoal placeholder-cmg-gray/50 focus:outline-none focus:ring-2 focus:ring-cmg-royal focus:border-transparent transition-all resize-none"
+          className="w-full px-4 py-3 rounded-lg border border-cmg-line bg-cmg-white text-cmg-charcoal placeholder-cmg-gray/70 focus:outline-none focus:ring-2 focus:ring-cmg-royal focus:border-transparent transition-all resize-none"
           placeholder="Tell us about your project..."
         />
       </div>
@@ -233,7 +234,7 @@ export default function ContactForm() {
         disabled={isSubmitting}
         data-testid="submit-button"
       >
-        {isSubmitting ? 'Sending...' : 'Request Free Quote'}
+        {isSubmitting ? 'Sending your request…' : PRIMARY_ACTION}
       </Button>
 
       <p className="text-cmg-gray text-xs text-center">

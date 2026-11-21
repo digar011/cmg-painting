@@ -4,6 +4,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import ContactForm from '@/components/forms/ContactForm';
 import { SITE_CONFIG } from '@/lib/constants';
+import PageHero from '@/components/sections/PageHero';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://cmgpaintinganddesign.com';
 const pageTitle = 'Contact Us | CMG Painting and Design';
@@ -96,26 +97,17 @@ export default function ContactPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }}
       />
       <Header />
-      <main>
+      <main id="main">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-cmg-charcoal via-cmg-royal to-cmg-blue py-20">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-            <p className="text-cmg-taupe font-semibold uppercase tracking-widest mb-4">
-              Get In Touch
-            </p>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-cmg-white mb-6">
-              Contact Us
-            </h1>
-            <p className="text-lg sm:text-xl text-cmg-light max-w-3xl mx-auto">
-              Ready to start your project? Reach out for a free,
-              no-obligation consultation and quote.
-            </p>
-          </div>
-        </section>
+        <PageHero
+          eyebrow={{ label: 'Contact Us' }}
+          title="Request a free painting estimate"
+          lead={<>Tell us about the job and we will set up a walkthrough, then send a written proposal with one price. Or call <a className="text-cmg-royal link-draw" href={`tel:${SITE_CONFIG.phone.replace(/\D/g, '')}`}>{SITE_CONFIG.phone}</a>.</>}
+        />
 
         {/* Contact Info Cards */}
         <section className="py-16 bg-cmg-off-white" data-testid="contact-info">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="wrap">
             <div className="grid md:grid-cols-3 gap-8">
               {contactInfo.map((item) => (
                 <div
@@ -125,7 +117,7 @@ export default function ContactPage() {
                   <div className="w-14 h-14 rounded-full bg-cmg-royal flex items-center justify-center text-cmg-taupe mx-auto mb-4">
                     {item.icon}
                   </div>
-                  <h3 className="text-lg font-bold text-cmg-charcoal mb-2">{item.title}</h3>
+                  <h3 className="text-lg font-medium text-cmg-charcoal mb-2">{item.title}</h3>
                   <p className="text-xl font-semibold text-cmg-royal mb-1">{item.value}</p>
                   <p className="text-cmg-gray text-sm">{item.description}</p>
                 </div>
@@ -135,16 +127,16 @@ export default function ContactPage() {
         </section>
 
         {/* Contact Form Section */}
-        <section className="py-20 bg-cmg-light" data-testid="contact-form-section">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <section className="py-20 bg-cmg-sand" data-testid="contact-form-section">
+          <div className="wrap">
             <div className="grid lg:grid-cols-2 gap-12">
               {/* Form */}
               <div>
-                <p className="text-cmg-royal font-semibold uppercase tracking-widest mb-2">
+                <p className="text-cmg-royal font-semibold mb-2">
                   Free Consultation
                 </p>
-                <h2 className="text-3xl sm:text-4xl font-bold text-cmg-charcoal mb-4">
-                  Request a Quote
+                <h2 className="text-cmg-charcoal mb-4">
+                  Tell us about the job
                 </h2>
                 <p className="text-cmg-gray mb-8">
                   Share a few details and we&apos;ll respond within 24 hours with
@@ -156,14 +148,14 @@ export default function ContactPage() {
               {/* What to Expect */}
               <div>
                 <div className="bg-cmg-charcoal rounded-2xl p-8 text-cmg-white h-full">
-                  <h3 className="text-2xl font-bold mb-6">What to Expect</h3>
+                  <h3 className="text-2xl font-medium mb-6">What to Expect</h3>
                   <div className="space-y-6">
                     <div className="flex gap-4">
                       <div className="w-8 h-8 rounded-full bg-cmg-royal text-cmg-white flex items-center justify-center flex-shrink-0 font-bold text-sm">
                         1
                       </div>
                       <div>
-                        <h4 className="font-bold text-cmg-taupe">Quick Response</h4>
+                        <h4 className="font-medium text-cmg-taupe">Quick Response</h4>
                         <p className="text-cmg-light text-sm">
                           We&apos;ll review your request and respond within 24 hours with next steps.
                         </p>
@@ -174,7 +166,7 @@ export default function ContactPage() {
                         2
                       </div>
                       <div>
-                        <h4 className="font-bold text-cmg-taupe">Free Consultation</h4>
+                        <h4 className="font-medium text-cmg-taupe">Free Consultation</h4>
                         <p className="text-cmg-light text-sm">
                           Schedule a no-obligation visit to review scope, materials, and options.
                         </p>
@@ -185,7 +177,7 @@ export default function ContactPage() {
                         3
                       </div>
                       <div>
-                        <h4 className="font-bold text-cmg-taupe">Detailed Quote</h4>
+                        <h4 className="font-medium text-cmg-taupe">Detailed Quote</h4>
                         <p className="text-cmg-light text-sm">
                           Receive a comprehensive, itemized quote with clear expectations.
                         </p>
@@ -196,7 +188,7 @@ export default function ContactPage() {
                         4
                       </div>
                       <div>
-                        <h4 className="font-bold text-cmg-taupe">Expert Execution</h4>
+                        <h4 className="font-medium text-cmg-taupe">Expert Execution</h4>
                         <p className="text-cmg-light text-sm">
                           Professional work with attention to detail and minimal disruption.
                         </p>
@@ -211,12 +203,12 @@ export default function ContactPage() {
 
         {/* Service Areas Section */}
         <section className="py-20 bg-cmg-off-white" data-testid="service-areas">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="wrap">
             <div className="text-center mb-12">
-              <p className="text-cmg-royal font-semibold uppercase tracking-widest mb-2">
+              <p className="text-cmg-royal font-semibold mb-2">
                 Where We Work
               </p>
-              <h2 className="text-3xl sm:text-4xl font-bold text-cmg-charcoal mb-4">
+              <h2 className="text-cmg-charcoal mb-4">
                 Our Service Areas
               </h2>
               <p className="text-cmg-gray max-w-2xl mx-auto">
@@ -231,7 +223,7 @@ export default function ContactPage() {
                   key={area.county}
                   className="bg-cmg-white border border-cmg-light rounded-xl p-6"
                 >
-                  <h3 className="text-xl font-bold text-cmg-charcoal mb-4 flex items-center gap-2">
+                  <h3 className="text-xl font-medium text-cmg-charcoal mb-4 flex items-center gap-2">
                     <svg className="w-5 h-5 text-cmg-royal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -251,7 +243,7 @@ export default function ContactPage() {
             </div>
 
             <p className="text-center text-cmg-gray mt-8 text-sm">
-              Don&apos;t see your town listed? Contact us - we may still be able to help!
+              Your town not listed? Call or send the form and ask. We often work nearby.
             </p>
           </div>
         </section>

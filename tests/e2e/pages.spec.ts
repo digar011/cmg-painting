@@ -5,7 +5,7 @@ test.describe('Page Content Tests', () => {
     test('displays correct h1 heading', async ({ page }) => {
       await page.goto('/');
       const h1 = page.locator('h1');
-      await expect(h1).toContainText('Transform Your Space');
+      await expect(h1).toContainText('House painting in Northern New Jersey');
     });
 
     test('hero section is visible', async ({ page }) => {
@@ -33,7 +33,7 @@ test.describe('Page Content Tests', () => {
     test('displays correct h1 heading', async ({ page }) => {
       await page.goto('/services');
       const h1 = page.locator('h1');
-      await expect(h1).toContainText('Our Services');
+      await expect(h1).toContainText('Painting and repair services');
     });
 
     test('services list is visible', async ({ page }) => {
@@ -66,7 +66,7 @@ test.describe('Page Content Tests', () => {
     test('displays correct h1 heading', async ({ page }) => {
       await page.goto('/gallery');
       const h1 = page.locator('h1');
-      await expect(h1).toContainText('Project Gallery');
+      await expect(h1).toContainText('Painting projects');
     });
 
     test('filter section is visible', async ({ page }) => {
@@ -112,7 +112,7 @@ test.describe('Page Content Tests', () => {
     test('displays correct h1 heading', async ({ page }) => {
       await page.goto('/contact');
       const h1 = page.locator('h1');
-      await expect(h1).toContainText('Contact Us');
+      await expect(h1).toContainText('Request a free painting estimate');
     });
 
     test('contact info section is visible', async ({ page }) => {

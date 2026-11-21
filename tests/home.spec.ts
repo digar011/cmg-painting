@@ -17,13 +17,13 @@ test.describe('Home Page', () => {
     test('hero primary CTA is visible and clickable', async ({ page }) => {
       const cta = page.getByTestId('hero-cta-primary');
       await expect(cta).toBeVisible();
-      await expect(cta).toContainText('Get Free Quote');
+      await expect(cta).toContainText('Request a free estimate');
     });
 
     test('hero secondary CTA is visible and clickable', async ({ page }) => {
       const cta = page.getByTestId('hero-cta-secondary');
       await expect(cta).toBeVisible();
-      await expect(cta).toContainText('View Our Work');
+      await expect(cta).toContainText('See our work');
     });
 
     test('hero displays location text', async ({ page }) => {
