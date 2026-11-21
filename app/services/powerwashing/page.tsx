@@ -106,7 +106,7 @@ export default function PowerwashingPage() {
         </section>
 
         {/* CTA Section */}
-        <CTA heading="Estimates for powerwashing" line="Tell us about the deck, porch or siding. We send a written proposal for washing and any stain or sealer." image={{ src: '/images/projects/deck-stain.webp', alt: 'Freshly stained wooden deck boards' }} />
+        <CTA heading="Estimates for powerwashing" line="Tell us about the deck, porch or siding. We send a written proposal for washing and any stain or sealer." image={{ src: '/images/projects/porch-floor-stain.webp', alt: 'Porch floor cleaned and stained' }} />
       </main>
       <Footer />
     </>

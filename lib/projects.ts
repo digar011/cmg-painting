@@ -46,7 +46,6 @@ export const PROJECTS: readonly Project[] = [
   project('carriage-garage-doors', 'Carriage Garage Doors', 'Exterior', 'Detached garage with carriage-style doors and trim painted to match the main house.', 'Detached garage with white carriage-style doors'),
   project('front-porch-steps', 'Front Porch & Steps', 'Carpentry', 'Porch floor and steps finished in a rich red stain with white risers and railings.', 'Front porch steps stained red with white risers'),
   project('porch-floor-stain', 'Porch Floor Staining', 'Powerwashing', 'Porch decking cleaned and stained for a warm, even finish.', 'Stained wooden porch floor'),
-  project('deck-powerwash', 'Deck Powerwashing', 'Powerwashing', 'Our crew powerwashing a wood deck to prep it for stain.', 'Painter powerwashing a wooden deck'),
   project('deck-stain', 'Deck Stain Refresh', 'Powerwashing', 'Cleaned and stained deck boards with a deep semi-transparent finish.', 'Freshly stained wooden deck boards'),
   project('built-ins-fireplace-wall', 'Custom Built-Ins & Fireplace Wall', 'Carpentry', 'Painted built-in cabinetry and shelving framing a brick fireplace and media wall.', 'Living room with white painted built-ins around a brick fireplace'),
   project('kitchen-renovation', 'Kitchen Refresh', 'Interior', 'Kitchen with new subway-tile backsplash, fresh walls and trim.', 'Kitchen with wood cabinets and white subway tile backsplash'),
@@ -61,7 +60,7 @@ export const PROJECTS: readonly Project[] = [
 export const SERVICE_IMAGES = {
   'interior-painting': { src: '/images/services/interior-painting.webp', alt: 'Foyer with freshly painted walls, trim and staircase' },
   'exterior-painting': { src: '/images/services/exterior-painting.webp', alt: 'Colonial home exterior repainted blue-gray with white trim' },
-  powerwashing: { src: '/images/services/powerwashing.webp', alt: 'CMG crew powerwashing a wooden deck' },
+  powerwashing: { src: '/images/projects/deck-stain.webp', alt: 'Wooden deck boards cleaned and stained' },
   'light-carpentry': { src: '/images/services/light-carpentry.webp', alt: 'Painted built-in cabinetry around a brick fireplace' },
 } as const;
 

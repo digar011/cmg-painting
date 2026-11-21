@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- **Crew photos taken off the site** (owner request, 2026-11-21). **Why:** the owner wants no photos of the crew for now. **Outcome:** the home page "How a CMG job runs" band now shows the finished red porch steps; the Powerwashing hero and services row use the stained-deck photo; the Powerwashing closing band uses the porch-floor photo; "Deck Powerwashing" was removed from the gallery (20 projects). The two image files stay in the repo, unused.
 - **Site redesign** (branch `feature/site-redesign`). **Why:** the owner asked for a more modern site that doesn't look generic before the first social posts. The old site used template patterns: purple-to-blue gradient banners, glass cards, all-caps eyebrows, icon-card grids, "Ready to Get Started?" bands. **Outcome:**
   - New system: warm paper ground, navy-black ink, the logo's royal blue as the one accent; Red Hat Display/Text in place of Inter; one 1200px content column; one button style with hover/press motion; reduced-motion support.
   - Home rebuilt around real CMG work: a split hero with the Dutch colonial job, services as photo rows, a Cape Cod before/after where the finished photo "develops" from grey once on screen, a recent-projects grid, a dark "How a CMG job runs" band (four steps from CMG's proposals, owner named), a service-area type section, and a closing band with a photo.
