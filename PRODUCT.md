@@ -215,7 +215,7 @@ The Contact page lists the following towns (`app/contact/page.tsx`). The About p
 
 ## Known Limitations
 
-1. **No `og-image.jpg`, `favicon.ico` or `apple-touch-icon.png`** in `public/`, although `app/layout.tsx` references them (they 404 in production). Social previews and browser icons will not display until they are added.
+1. ~~No `og-image.jpg` or favicons~~ -- added 2026-11-21 (`public/og-image.jpg`, `favicon.ico`, `apple-touch-icon.png`, `icon.png`).
 2. **No reviews/testimonials** section yet.
 3. **No Google Analytics, Search Console or Google Business Profile** integration yet.
 4. **No Meta Pixel / Conversions API** yet (needed before running Meta ads).

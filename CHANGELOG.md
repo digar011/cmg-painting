@@ -8,6 +8,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+
+- **Link-preview image and favicons** (`public/og-image.jpg` 1200x630, `favicon.ico` 16/32/48, `apple-touch-icon.png` 180, `icon.png` 512). **Why:** `app/layout.tsx` referenced them but they 404'd, so links shared on Facebook showed no picture before the first social post (Mon Nov 23). **Outcome:** the share card shows a real CMG exterior job beside the CMG logo, service line, counties and phone; browser tabs and home-screen bookmarks show the CMG mark. Built from the owner's logo file and a real project photo. Guarded by `tests/share-assets.spec.ts`.
+- **Instagram-ready footer.** `SITE_CONFIG.social.instagram` (empty until the page is live); the footer and JSON-LD `sameAs` render every profile that has a URL. **Why:** add Instagram the moment the page exists without touching components. **Outcome:** one-line change in `lib/constants.ts`; social icons are now 44px tap targets with descriptive labels.
+
+### Verified
+
+- **Contact form delivers in production** (2026-11-21). A test quote request to the live `/api/contact` returned `{"success":true}` after a real SMTP send (~5.7s); all six SMTP/contact vars are set in Vercel Production. Inbox receipt to be confirmed by the owner.
+
 ### Changed
 
 - **Documentation synced with code and the live site** (README, CLAUDE.md, ONBOARDING, PRODUCT, TODO, `.env.local.example`, `docs/SEO-GUIDE.md`, `docs/COMPONENT-GUIDE.md`, `tests/README.md`). **Why:** docs still said the contact form did not send email, the phone was a placeholder and the gallery used placeholder data, and README/ONBOARDING/SEO-GUIDE still published the street address and ZIP. **Outcome:** docs match the code; street address removed from all docs (city and state only); live URL, Vercel deployment, all env vars (including `SMTP_FROM`) and current test counts (207 tests, 414 runs) documented.
