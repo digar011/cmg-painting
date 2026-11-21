@@ -102,6 +102,8 @@ export default function RootLayout({
     "@id": `${siteUrl}#localbusiness`,
     name: SITE_CONFIG.name,
     url: siteUrl,
+    logo: `${siteUrl}/images/brand/cmg-logo.png`,
+    image: `${siteUrl}/og-image.jpg`,
     description: "Professional painting and design services including interior painting, exterior painting, powerwashing, and light carpentry across Morris, Essex, Union, and Sussex counties in New Jersey.",
     telephone: SITE_CONFIG.phone,
     email: SITE_CONFIG.email,

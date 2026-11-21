@@ -52,7 +52,7 @@ export default function Footer() {
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-6">
           <div className="lg:col-span-4">
             <div data-testid="footer-logo">
-              <Logo />
+              <Logo size="footer" />
             </div>
             <ul className="mt-6 space-y-1 text-base">
               <li>

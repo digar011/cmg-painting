@@ -10,6 +10,7 @@ test.describe('Share image and favicons', () => {
     ['/favicon.ico', 'image/'],
     ['/apple-touch-icon.png', 'image/png'],
     ['/icon.png', 'image/png'],
+    ['/images/brand/cmg-logo.png', 'image/png'],
   ];
 
   for (const [path, type] of assets) {
@@ -47,5 +48,16 @@ test.describe('Footer social links', () => {
       await expect(links.nth(i)).toHaveAttribute('aria-label', /CMG Painting and Design on /);
       await expect(links.nth(i)).toHaveAttribute('href', /^https:\/\//);
     }
+  });
+});
+
+test.describe('Logo', () => {
+  test('header and footer show the CMG logo image', async ({ page }) => {
+    await page.goto('/');
+    const header = page.getByTestId('site-logo').getByRole('img', { name: 'CMG Painting and Design' });
+    await expect(header).toBeVisible();
+    await expect(header).toHaveJSProperty('complete', true);
+    expect(await header.evaluate((i: HTMLImageElement) => i.naturalWidth)).toBeGreaterThan(0);
+    await expect(page.getByTestId('footer-logo').getByRole('img', { name: 'CMG Painting and Design' })).toBeAttached();
   });
 });

@@ -11,7 +11,6 @@
 - [ ] Reconcile Contact page service-area towns with the documented `SERVICE_TOWNS` list (confirm with owner)
 - [ ] Owner: confirm insurance coverage. The "Fully Insured" claim was removed from home and footer; it can be restored once confirmed.
 - [ ] Owner: supply higher-resolution project photos (most are older phone shots). No crew/people photos for now (owner, 2026-11-21)
-- [ ] Consider a flat redraw of the CMG logo (the current file is a beveled 3D graphic); the site uses a typographic wordmark meanwhile
 - [ ] Old logo file prints 973-462-7532; confirmed business number is (973) 462-7310. Check printed materials
 - [ ] Verify service-page feature lists (cabinet refinishing, color consultation, fence painting, faux finishes) against CMG records
 - [ ] Set up Google Analytics integration

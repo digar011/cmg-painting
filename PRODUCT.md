@@ -178,7 +178,7 @@ Gallery projects are managed through Sanity CMS. Non-gallery content (service de
 
 Reusable UI components documented in `docs/COMPONENT-GUIDE.md`:
 - Button (primary, secondary, ghost variants)
-- Logo (sizes and color variants)
+- Logo (the owner's logo file, header and footer sizes)
 - ServiceCard
 - ProjectCard
 - BackToTop
