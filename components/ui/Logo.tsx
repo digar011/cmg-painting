@@ -1,37 +1,41 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 interface LogoProps {
-  variant?: 'default' | 'white';
+  /** Header (compact) or footer (larger). */
+  size?: 'header' | 'footer';
   clickable?: boolean;
+  /** Load eagerly (above the fold). */
+  priority?: boolean;
   className?: string;
 }
 
 /**
- * CMG wordmark: "CMG" set in the display face with the logo's brush stroke
- * as an underline, "Painting & Design" beside it.
+ * The owner's logo ("CMG - Logo Final", 2017), white background removed.
+ * Source: public/images/brand/cmg-logo.png (1200x563).
  */
-export default function Logo({ variant = 'default', clickable = true, className = '' }: LogoProps) {
-  const ink = variant === 'white' ? 'text-white' : 'text-cmg-ink';
-  const sub = variant === 'white' ? 'text-cmg-taupe' : 'text-cmg-gray';
+export const LOGO_SRC = '/images/brand/cmg-logo.png';
 
-  const content = (
-    <span className={`flex items-center gap-2.5 ${className}`}>
-      <span className="relative font-display text-[28px] font-medium leading-none tracking-[-0.04em] text-cmg-royal">
-        <span className={variant === 'white' ? 'text-white' : ''}>CMG</span>
-        <span aria-hidden="true" className="absolute -bottom-1.5 left-0 h-[3px] w-full rounded-full bg-cmg-royal" />
-      </span>
-      <span className={`font-display text-[13px] font-medium uppercase leading-[1.1] tracking-[0.08em] ${ink}`}>
-        Painting
-        <span className={`block ${sub}`}>&amp; Design</span>
-      </span>
-    </span>
+const HEIGHT = { header: 'h-[52px]', footer: 'h-20' } as const;
+
+export default function Logo({ size = 'header', clickable = true, priority = false, className = '' }: LogoProps) {
+  const img = (
+    <Image
+      src={LOGO_SRC}
+      alt="CMG Painting and Design"
+      width={1200}
+      height={563}
+      priority={priority}
+      sizes={size === 'header' ? '111px' : '171px'}
+      className={`${HEIGHT[size]} w-auto ${className}`}
+    />
   );
 
-  if (!clickable) return content;
+  if (!clickable) return img;
 
   return (
     <Link href="/" className="inline-flex min-h-[44px] items-center rounded" aria-label="CMG Painting and Design, home">
-      {content}
+      {img}
     </Link>
   );
 }

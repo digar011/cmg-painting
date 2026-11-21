@@ -71,7 +71,7 @@ export default function Header() {
         <nav className="wrap" data-testid="primary-nav" aria-label="Main">
           <div className="flex h-[72px] items-center justify-between gap-3 sm:gap-6">
             <div data-testid="site-logo">
-              <Logo />
+              <Logo priority />
             </div>
 
             {/* Desktop links */}

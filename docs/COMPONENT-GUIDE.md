@@ -46,13 +46,30 @@ import Button from '@/components/ui/Button';
 
 ### Logo
 
-Company logo component with multiple display options.
+The owner's logo file ("CMG - Logo Final", 2017) with its white background removed, served from `public/images/brand/cmg-logo.png` (1200x563, transparent PNG; `next/image` resizes it).
 
 **Location**: `components/ui/Logo.tsx`
 
 **Props**:
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
+| `size` | `'header' \| 'footer'` | `'header'` | 52px tall in the header, 80px in the footer |
+| `clickable` | `boolean` | `true` | Links to home |
+| `priority` | `boolean` | `false` | Load eagerly (set in the header) |
+| `className` | `string` | `''` | Additional CSS classes |
+
+**Usage**:
+```tsx
+import Logo from '@/components/ui/Logo';
+
+<Logo priority />          // header
+<Logo size="footer" />     // footer
+<Logo clickable={false} /> // no link
+```
+
+The logo is made for light grounds (paper/sand/white); there is no white variant.
+
+------|------|---------|-------------|
 | `size` | `'small' \| 'medium' \| 'large'` | `'medium'` | Logo size |
 | `variant` | `'default' \| 'white'` | `'default'` | Color variant |
 | `clickable` | `boolean` | `true` | Links to home |
