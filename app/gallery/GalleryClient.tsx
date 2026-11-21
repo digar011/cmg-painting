@@ -5,6 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import PageHero from '@/components/sections/PageHero';
+import CTA from '@/components/sections/CTA';
 
 interface Project {
   id: string;
@@ -45,27 +47,17 @@ export default function GalleryClient({ projects }: GalleryClientProps) {
   return (
     <>
       <Header />
-      <main>
+      <main id="main">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-cmg-charcoal via-cmg-royal to-cmg-blue py-20">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-            <p className="text-cmg-taupe font-semibold uppercase tracking-widest mb-4">
-              Our Work
-            </p>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-cmg-white mb-6">
-              Project Gallery
-            </h1>
-            <p className="text-lg sm:text-xl text-cmg-light max-w-3xl mx-auto">
-              Browse our portfolio of completed projects across Morris, Essex, Union,
-              and Sussex counties. Every project showcases our commitment to quality
-              craftsmanship.
-            </p>
-          </div>
-        </section>
+        <PageHero
+          eyebrow={{ label: 'Gallery' }}
+          title="Painting projects across Northern NJ"
+          lead="Exteriors, interiors, decks and carpentry we have finished in Morris, Essex, Union and Sussex counties. Filter by the kind of work."
+        />
 
         {/* Filter Section */}
         <section className="py-8 bg-cmg-off-white border-b border-cmg-light sticky top-20 z-40" data-testid="gallery-filters">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="wrap">
             <div className="flex flex-wrap justify-center gap-3">
               {categories.map((category) => (
                 <button
@@ -75,7 +67,7 @@ export default function GalleryClient({ projects }: GalleryClientProps) {
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                     activeFilter === category.id
                       ? 'bg-cmg-royal text-cmg-white'
-                      : 'bg-cmg-light text-cmg-gray hover:bg-cmg-royal/10'
+                      : 'bg-cmg-sand text-cmg-gray hover:bg-cmg-royal/10'
                   }`}
                 >
                   {category.name}
@@ -87,18 +79,18 @@ export default function GalleryClient({ projects }: GalleryClientProps) {
 
         {/* Gallery Grid */}
         <section className="py-16 bg-cmg-off-white" data-testid="gallery-grid">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="wrap">
             {filteredProjects.length > 0 ? (
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredProjects.map((project) => (
                   <div
                     key={project.id}
                     data-testid="project-card"
-                    className="group relative rounded-xl overflow-hidden bg-cmg-light cursor-pointer"
+                    className="group relative rounded-xl overflow-hidden bg-cmg-sand cursor-pointer"
                     onClick={() => setSelectedProject(project)}
                   >
                     {/* Image Container */}
-                    <div className="relative aspect-[4/3] overflow-hidden bg-cmg-light">
+                    <div className="relative aspect-[4/3] overflow-hidden bg-cmg-sand">
                       {project.imageSrc ? (
                         <Image
                           src={project.imageSrc}
@@ -136,7 +128,7 @@ export default function GalleryClient({ projects }: GalleryClientProps) {
 
                       {/* Category Badge */}
                       <div className="absolute top-4 left-4">
-                        <span className="px-3 py-1 bg-cmg-royal text-cmg-white text-xs font-semibold uppercase tracking-wider rounded-full">
+                        <span className="px-3 py-1 bg-cmg-royal text-cmg-white text-xs font-semibold rounded-full">
                           {project.category}
                         </span>
                       </div>
@@ -151,7 +143,7 @@ export default function GalleryClient({ projects }: GalleryClientProps) {
 
                     {/* Content */}
                     <div className="p-4 bg-cmg-white">
-                      <h3 className="font-bold text-cmg-charcoal mb-1">
+                      <h3 className="font-medium text-cmg-charcoal mb-1">
                         {project.title}
                       </h3>
                       <p className="text-cmg-gray text-sm flex items-center gap-1">
@@ -198,25 +190,7 @@ export default function GalleryClient({ projects }: GalleryClientProps) {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-cmg-charcoal">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold text-cmg-white mb-4">
-              Ready to Start Your Project?
-            </h2>
-            <p className="text-lg text-cmg-taupe mb-8">
-              Let&apos;s discuss your vision and create something beautiful together.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                data-testid="gallery-cta"
-                className="inline-flex items-center justify-center font-semibold rounded-md transition-all duration-200 bg-cmg-royal text-cmg-white hover:-translate-y-0.5 hover:shadow-glass-lg px-8 py-3.5 text-lg"
-              >
-                Get Free Quote
-              </Link>
-            </div>
-          </div>
-        </section>
+        <CTA heading="Free written estimates" testId="gallery-close" primaryTestId="gallery-cta" secondaryTestId="gallery-cta-phone" image={{ src: '/images/projects/colonial-exterior.webp', alt: 'Two-story colonial repainted blue-gray with white trim' }} />
 
         {/* Lightbox Modal */}
         {selectedProject && (
@@ -252,7 +226,7 @@ export default function GalleryClient({ projects }: GalleryClientProps) {
               </button>
 
               {/* Image */}
-              <div className="relative aspect-video bg-cmg-light">
+              <div className="relative aspect-video bg-cmg-sand">
                 {selectedProject.imageSrc ? (
                   <Image
                     src={selectedProject.imageSrc}
@@ -288,10 +262,10 @@ export default function GalleryClient({ projects }: GalleryClientProps) {
               <div className="p-6">
                 <div className="flex items-start justify-between gap-4 mb-4">
                   <div>
-                    <span className="inline-block px-3 py-1 bg-cmg-royal text-cmg-white text-xs font-semibold uppercase tracking-wider rounded-full mb-2">
+                    <span className="inline-block px-3 py-1 bg-cmg-royal text-cmg-white text-xs font-semibold rounded-full mb-2">
                       {selectedProject.category}
                     </span>
-                    <h2 className="text-2xl font-bold text-cmg-charcoal">
+                    <h2 className="text-cmg-charcoal">
                       {selectedProject.title}
                     </h2>
                   </div>

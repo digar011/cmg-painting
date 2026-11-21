@@ -1,61 +1,64 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { HERO_IMAGE } from '@/lib/projects';
+import { GALLERY_ACTION, PRIMARY_ACTION } from '@/lib/copy';
+import { SITE_CONFIG } from '@/lib/constants';
 
+/** Home hero ("split" deal): text left, a real CMG exterior on the right. */
 export default function Hero() {
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden" data-testid="home-hero">
-      {/* Background image */}
-      <div className="absolute inset-0 bg-gradient-to-br from-cmg-charcoal via-cmg-royal to-cmg-blue">
-        <Image
-          src={HERO_IMAGE.src}
-          alt={HERO_IMAGE.alt}
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-          data-testid="hero-image"
-        />
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-cmg-charcoal/80 via-cmg-charcoal/50 to-transparent" />
-      </div>
-
-      {/* Content */}
-      <div className="relative z-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 w-full">
-        <div className="max-w-2xl">
-          <p className="text-cmg-taupe font-semibold uppercase tracking-widest mb-4 drop-shadow-lg">
-            Morris, Essex, Union & Sussex Counties, NJ
+    <section
+      className="relative flex min-h-[calc(100svh-73px)] items-stretch py-8 lg:py-12"
+      data-testid="home-hero"
+      aria-labelledby="hero-heading"
+    >
+      <div className="wrap grid items-start gap-8 lg:grid-cols-12 lg:gap-6">
+        <div className="flex flex-col animate-enter lg:col-span-5">
+          <p className="eyebrow flex items-center gap-2">
+            <span aria-hidden="true" className="h-2 w-2 rounded-full bg-cmg-royal" />
+            Owner-run painters in {SITE_CONFIG.address.full}
           </p>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-xl" data-testid="hero-heading">
-            Transform Your Space
-            <span className="block text-cmg-taupe drop-shadow-lg">With Expert Painting</span>
+          <h1 id="hero-heading" className="mt-4" data-testid="hero-heading">
+            House painting in Northern New&nbsp;Jersey
           </h1>
-          <p className="text-lg sm:text-xl text-white/90 mb-8 max-w-xl drop-shadow-md">
-            Professional painting and design services that bring your vision to
-            life. Quality craftsmanship, attention to detail, and results that
-            last.
+          <p className="mt-6 max-w-[42ch] text-lg leading-relaxed text-cmg-gray sm:text-xl">
+            Interior and exterior repaints, deck staining, powerwashing and trim carpentry across
+            Morris, Essex, Union and Sussex counties. Every job starts with a written,
+            room-by-room proposal.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Link
-              href="/contact"
-              data-testid="hero-cta-primary"
-              className="inline-flex items-center justify-center font-semibold rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-cmg-taupe text-cmg-charcoal hover:-translate-y-0.5 hover:shadow-glass-lg focus:ring-cmg-taupe px-8 py-3.5 text-lg shadow-lg"
-            >
-              Get Free Quote
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Link href="/contact" data-testid="hero-cta-primary" className="btn btn-primary">
+              {PRIMARY_ACTION}
+              <span aria-hidden="true" className="arrow">→</span>
             </Link>
-            <Link
-              href="/gallery"
-              data-testid="hero-cta-secondary"
-              className="inline-flex items-center justify-center font-semibold rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-transparent border-2 border-cmg-white text-cmg-white hover:bg-cmg-white hover:text-cmg-charcoal focus:ring-cmg-white px-8 py-3.5 text-lg shadow-lg"
-            >
-              View Our Work
+            <Link href="/gallery" data-testid="hero-cta-secondary" className="btn btn-secondary">
+              {GALLERY_ACTION}
             </Link>
           </div>
         </div>
-      </div>
 
-      {/* Bottom Gradient Fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-cmg-off-white to-transparent z-20" />
+        <div className="relative animate-enter [animation-delay:120ms] lg:col-span-6 lg:col-start-7">
+          <div className="relative h-[320px] overflow-hidden rounded-frame sm:h-[440px] lg:h-[calc(100svh-73px-6rem)] lg:max-h-[716px] lg:min-h-[520px]">
+            <Image
+              src="/images/projects/dutch-colonial-exterior.webp"
+              alt="Dutch colonial home with gambrel roof, painted greige with white trim and railings by CMG"
+              fill
+              priority
+              sizes="(min-width: 1024px) 600px, 100vw"
+              className="object-cover object-[45%_50%]"
+              data-testid="hero-image"
+            />
+          </div>
+          <div className="absolute bottom-4 left-4 max-w-[280px] rounded-xl border border-cmg-line bg-cmg-paper p-4 sm:bottom-6 sm:left-6">
+            <p className="flex items-center gap-2 text-sm font-medium text-cmg-ink">
+              <span aria-hidden="true" className="h-2 w-2 animate-breathe rounded-full bg-cmg-royal" />
+              Two finish coats, standard
+            </p>
+            <p className="mt-1 text-sm leading-snug text-cmg-gray">
+              Sherwin-Williams or Benjamin Moore on walls, ceilings, trim and doors.
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

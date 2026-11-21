@@ -6,6 +6,8 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { SITE_CONFIG, SERVICE_TOWNS } from '@/lib/constants';
 import { PROJECTS, type Project } from '@/lib/projects';
+import PageHero from '@/components/sections/PageHero';
+import CTA from '@/components/sections/CTA';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://cmgpaintinganddesign.com';
 // The root layout template appends " | CMG Painting and Design".
@@ -146,33 +148,24 @@ export default function AboutPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutSchema) }}
       />
       <Header />
-      <main>
+      <main id="main">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-cmg-charcoal via-cmg-royal to-cmg-blue py-20">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-            <p className="text-cmg-taupe font-semibold uppercase tracking-widest mb-4">
-              Who We Are
-            </p>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-cmg-white mb-6">
-              About CMG Painting and Design
-            </h1>
-            <p className="text-lg sm:text-xl text-cmg-light max-w-3xl mx-auto">
-              A locally owned painting company from {SITE_CONFIG.address.city}, New Jersey,
-              painting homes and businesses across Northern New Jersey for more than a decade.
-            </p>
-          </div>
-        </section>
+        <PageHero
+          eyebrow={{ label: 'About' }}
+          title="About CMG Painting and Design"
+          lead={<>A locally owned painting company from {SITE_CONFIG.address.city}, New Jersey, painting homes and businesses across Northern New Jersey for more than a decade.</>}
+        />
 
         {/* Stats Section */}
         <section className="py-12 bg-cmg-charcoal" data-testid="about-stats">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="wrap">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
               {stats.map((stat) => (
                 <div key={stat.label} className="text-center">
                   <p className="text-3xl sm:text-4xl font-bold text-cmg-taupe mb-2">
                     {stat.number}
                   </p>
-                  <p className="text-cmg-light text-sm uppercase tracking-wider">
+                  <p className="text-cmg-light text-sm">
                     {stat.label}
                   </p>
                 </div>
@@ -183,13 +176,13 @@ export default function AboutPage() {
 
         {/* Our Story Section */}
         <section className="py-20 bg-cmg-off-white" data-testid="about-story">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="wrap">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
-                <p className="text-cmg-royal font-semibold uppercase tracking-widest mb-2">
+                <p className="text-cmg-royal font-semibold mb-2">
                   Our Story
                 </p>
-                <h2 className="text-3xl sm:text-4xl font-bold text-cmg-charcoal mb-6">
+                <h2 className="text-cmg-charcoal mb-6">
                   More Than a Decade of Painting in Northern New Jersey
                 </h2>
                 <div className="space-y-4 text-cmg-gray">
@@ -242,12 +235,12 @@ export default function AboutPage() {
 
         {/* Process Section */}
         <section className="py-20 bg-cmg-white" data-testid="about-process">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="wrap">
             <div className="text-center mb-16">
-              <p className="text-cmg-royal font-semibold uppercase tracking-widest mb-2">
+              <p className="text-cmg-royal font-semibold mb-2">
                 How We Work
               </p>
-              <h2 className="text-3xl sm:text-4xl font-bold text-cmg-charcoal mb-4">
+              <h2 className="text-cmg-charcoal mb-4">
                 What to Expect on Every Job
               </h2>
               <p className="text-cmg-gray max-w-2xl mx-auto">
@@ -265,7 +258,7 @@ export default function AboutPage() {
                   <span className="flex items-center justify-center w-10 h-10 rounded-full bg-cmg-royal text-cmg-white font-bold mb-4" aria-hidden="true">
                     {index + 1}
                   </span>
-                  <h3 className="text-lg font-bold text-cmg-charcoal mb-2">{step.title}</h3>
+                  <h3 className="text-lg font-medium text-cmg-charcoal mb-2">{step.title}</h3>
                   <p className="text-cmg-gray text-sm">{step.description}</p>
                 </li>
               ))}
@@ -274,13 +267,13 @@ export default function AboutPage() {
         </section>
 
         {/* Values Section */}
-        <section className="py-20 bg-cmg-light" data-testid="about-values">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <section className="py-20 bg-cmg-sand" data-testid="about-values">
+          <div className="wrap">
             <div className="text-center mb-16">
-              <p className="text-cmg-royal font-semibold uppercase tracking-widest mb-2">
+              <p className="text-cmg-royal font-semibold mb-2">
                 Why Choose CMG
               </p>
-              <h2 className="text-3xl sm:text-4xl font-bold text-cmg-charcoal mb-4">
+              <h2 className="text-cmg-charcoal mb-4">
                 Our Core Values
               </h2>
               <p className="text-cmg-gray max-w-2xl mx-auto">
@@ -298,7 +291,7 @@ export default function AboutPage() {
                   <div className="w-16 h-16 rounded-full bg-cmg-royal flex items-center justify-center text-cmg-taupe mx-auto mb-4">
                     {value.icon}
                   </div>
-                  <h3 className="text-lg font-bold text-cmg-charcoal mb-2">
+                  <h3 className="text-lg font-medium text-cmg-charcoal mb-2">
                     {value.title}
                   </h3>
                   <p className="text-cmg-gray text-sm">{value.description}</p>
@@ -310,12 +303,12 @@ export default function AboutPage() {
 
         {/* Recent Work Section */}
         <section className="py-20 bg-cmg-off-white" data-testid="about-work">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="wrap">
             <div className="text-center mb-12">
-              <p className="text-cmg-royal font-semibold uppercase tracking-widest mb-2">
+              <p className="text-cmg-royal font-semibold mb-2">
                 Our Work
               </p>
-              <h2 className="text-3xl sm:text-4xl font-bold text-cmg-charcoal mb-4">
+              <h2 className="text-cmg-charcoal mb-4">
                 Real Projects by Our Crew
               </h2>
             </div>
@@ -335,7 +328,7 @@ export default function AboutPage() {
                     />
                   </div>
                   <figcaption className="p-5">
-                    <h3 className="text-lg font-bold text-cmg-charcoal mb-1">{project.title}</h3>
+                    <h3 className="text-lg font-medium text-cmg-charcoal mb-1">{project.title}</h3>
                     <p className="text-sm text-cmg-gray">{project.description}</p>
                   </figcaption>
                 </figure>
@@ -356,12 +349,12 @@ export default function AboutPage() {
 
         {/* Service Area Section */}
         <section className="py-20 bg-cmg-white" data-testid="about-service-area">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="wrap">
             <div className="text-center mb-12">
-              <p className="text-cmg-royal font-semibold uppercase tracking-widest mb-2">
+              <p className="text-cmg-royal font-semibold mb-2">
                 Where We Work
               </p>
-              <h2 className="text-3xl sm:text-4xl font-bold text-cmg-charcoal mb-4">
+              <h2 className="text-cmg-charcoal mb-4">
                 Serving Morris, Essex, Union &amp; Sussex Counties
               </h2>
               <p className="text-cmg-gray max-w-2xl mx-auto">
@@ -372,7 +365,7 @@ export default function AboutPage() {
             <div className="grid sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
               {SERVICE_TOWNS.map((group) => (
                 <div key={group.county} className="text-center sm:text-left">
-                  <h3 className="text-lg font-bold text-cmg-charcoal mb-2">{group.county}</h3>
+                  <h3 className="text-lg font-medium text-cmg-charcoal mb-2">{group.county}</h3>
                   <ul className="text-cmg-gray text-sm space-y-1">
                     {group.towns.map((town) => (
                       <li key={town}>{town}</li>
@@ -389,53 +382,7 @@ export default function AboutPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-cmg-royal relative overflow-hidden" data-testid="about-cta">
-          <div className="absolute inset-0 opacity-5">
-            <div
-              className="absolute inset-0"
-              style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg%20width='48'%20height='48'%20viewBox='0%200%2048%2048'%20xmlns='http://www.w3.org/2000/svg'%3E%3Cg%20fill='none'%20fill-rule='evenodd'%3E%3Cg%20stroke='%23ffffff'%20stroke-width='1'%20stroke-linecap='square'%3E%3Cpath%20d='M18%2018h12L18%2030h12'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-              }}
-            />
-          </div>
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center relative">
-            <h2 className="text-3xl sm:text-4xl font-bold text-cmg-white mb-4">
-              Ready to Work Together?
-            </h2>
-            <p className="text-lg text-cmg-light mb-8">
-              Tell us about your project. We&apos;ll set up a walkthrough and send you a free,
-              written estimate with a clear scope and price.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center font-semibold rounded-md transition-all duration-200 bg-cmg-taupe text-cmg-charcoal hover:-translate-y-0.5 hover:shadow-glass-lg px-8 py-3.5 text-lg"
-                data-testid="about-cta-quote"
-              >
-                Get Free Quote
-              </Link>
-              <a
-                href={`tel:${SITE_CONFIG.phone.replace(/[^\d+]/g, '')}`}
-                className="inline-flex items-center justify-center font-semibold rounded-md transition-all duration-200 bg-transparent border-2 border-cmg-white text-cmg-white hover:bg-cmg-white hover:text-cmg-royal px-8 py-3.5 text-lg"
-                data-testid="about-cta-phone"
-              >
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-                Call {SITE_CONFIG.phone}
-              </a>
-            </div>
-            <p className="mt-6 text-sm text-cmg-light">
-              Prefer email? Write to{' '}
-              <a
-                href={`mailto:${SITE_CONFIG.email}`}
-                className="underline hover:text-cmg-white"
-              >
-                {SITE_CONFIG.email}
-              </a>
-            </p>
-          </div>
-        </section>
+        <CTA heading="Free written estimates" testId="about-cta" primaryTestId="about-cta-quote" secondaryTestId="about-cta-phone" image={{ src: '/images/projects/dutch-colonial-exterior.webp', alt: 'Dutch colonial home painted greige with white trim' }} />
       </main>
       <Footer />
     </>

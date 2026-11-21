@@ -1,109 +1,73 @@
-import ServiceCard from '../ui/ServiceCard';
+import Image from 'next/image';
+import Link from 'next/link';
+import { SERVICE_IMAGES } from '@/lib/projects';
 
 const services = [
   {
-    title: 'Interior Painting',
-    description:
-      'Transform your indoor spaces with expert interior painting. Walls, ceilings, trim, and more with premium finishes.',
-    href: '/services/interior-painting',
-    icon: (
-      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
-        />
-      </svg>
-    ),
+    id: 'interior-painting',
+    name: 'Interior painting',
+    line: 'Walls, ceilings, trim, doors and staircases, plus wallpaper. Furniture and floors are covered before we start.',
   },
   {
-    title: 'Exterior Painting',
-    description:
-      'Protect and beautify your home\'s exterior. Weather-resistant coatings that stand the test of time.',
-    href: '/services/exterior-painting',
-    icon: (
-      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-        />
-      </svg>
-    ),
+    id: 'exterior-painting',
+    name: 'Exterior painting',
+    line: 'Clapboard, cedar shingle and trim scraped, primed and repainted, including older homes.',
   },
   {
-    title: 'Powerwashing',
-    description:
-      'Restore surfaces to like-new condition. Decks, patios, driveways, siding, and more.',
-    href: '/services/powerwashing',
-    icon: (
-      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
-        />
-      </svg>
-    ),
+    id: 'powerwashing',
+    name: 'Powerwashing',
+    line: 'Decks, porches and siding washed clean, then stained or sealed.',
   },
   {
-    title: 'Light Carpentry',
-    description:
-      'Quality carpentry work including trim, molding, crown molding installation, and repairs.',
-    href: '/services/light-carpentry',
-    icon: (
-      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-        />
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-        />
-      </svg>
-    ),
+    id: 'light-carpentry',
+    name: 'Light carpentry',
+    line: 'Trim, door, drywall and built-in repairs, so the paint job looks finished.',
   },
-];
+] as const;
 
+/** Services as a list, each row with its own photograph of CMG work. */
 export default function ServicesOverview() {
   return (
-    <section className="py-20 bg-cmg-light" data-testid="services-overview">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <p className="text-cmg-royal font-semibold uppercase tracking-widest mb-2">
-            What We Do
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-cmg-charcoal mb-4">
-            Our Services
-          </h2>
-          <p className="text-cmg-gray max-w-2xl mx-auto">
-            From complete home transformations to precise finishing touches, we
-            deliver quality craftsmanship across every project.
+    <section className="py-20 lg:py-28" data-testid="services-overview" aria-labelledby="services-heading">
+      <div className="wrap">
+        <div className="grid gap-4 lg:grid-cols-12 lg:items-end">
+          <h2 id="services-heading" className="lg:col-span-7">What we paint and repair</h2>
+          <p className="max-w-[46ch] text-lg text-cmg-gray lg:col-span-5">
+            Mostly homes, plus offices, senior-living communities and car showrooms.
           </p>
         </div>
 
-        {/* Service Cards Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {services.map((service) => (
-            <ServiceCard
-              key={service.title}
-              title={service.title}
-              description={service.description}
-              href={service.href}
-              icon={service.icon}
-              testId={`service-card-${service.title.toLowerCase().replace(/\s+/g, '-')}`}
-            />
-          ))}
-        </div>
+        <ul className="mt-12 border-t border-cmg-ink/15">
+          {services.map((s) => {
+            const img = SERVICE_IMAGES[s.id];
+            return (
+              <li key={s.id} className="border-b border-cmg-ink/15">
+                <Link
+                  href={`/services/${s.id}`}
+                  data-testid={`service-card-${s.id}`}
+                  className="photo-zoom group grid grid-cols-[1fr_96px] items-center gap-4 py-6 sm:grid-cols-[1fr_160px] sm:gap-8 lg:grid-cols-12 lg:py-7"
+                >
+                  <span className="lg:col-span-4">
+                    <span className="block font-display text-[1.75rem] leading-tight tracking-[-0.025em] text-cmg-ink transition-colors group-hover:text-cmg-royal sm:text-4xl">
+                      {s.name}
+                    </span>
+                    <span className="mt-2 block text-base text-cmg-gray lg:hidden">{s.line}</span>
+                  </span>
+                  <span className="hidden text-base leading-relaxed text-cmg-gray lg:col-span-5 lg:block">{s.line}</span>
+                  <span className="relative block aspect-[4/3] overflow-hidden rounded-lg lg:col-span-2 lg:col-start-10">
+                    <Image src={img.src} alt={img.alt} fill sizes="160px" className="object-cover" />
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="hidden justify-self-end text-2xl text-cmg-royal transition-transform group-hover:translate-x-1 lg:col-span-1 lg:block"
+                  >
+                    →
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </section>
   );

@@ -5,6 +5,9 @@ import Script from 'next/script';
 import Link from 'next/link';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import PageHero from '@/components/sections/PageHero';
+import { PRIMARY_ACTION } from '@/lib/copy';
+import CTA from '@/components/sections/CTA';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://cmgpaintinganddesign.com';
 const pageTitle = 'Interior Painting Services | CMG Painting and Design';
@@ -65,50 +68,28 @@ export default function InteriorPaintingPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
       <Header />
-      <main>
+      <main id="main">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-cmg-charcoal via-cmg-royal to-cmg-blue py-20">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <Link href="/services" className="inline-flex items-center text-cmg-taupe hover:text-cmg-white mb-6 transition-colors">
-              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              Back to Services
-            </Link>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-cmg-white mb-6">
-              Interior Painting
-            </h1>
-            <p className="text-lg sm:text-xl text-cmg-light max-w-3xl">
-              Transform your indoor spaces with expert interior painting services.
-              We deliver flawless finishes that bring your vision to life.
-            </p>
-          </div>
-        </section>
-
-        {/* Project photo */}
-        <section className="py-16 bg-cmg-off-white">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-cmg-light shadow-glass-md">
-              <Image
-                src={SERVICE_IMAGES['interior-painting'].src}
-                alt={SERVICE_IMAGES['interior-painting'].alt}
-                fill
-                sizes="(min-width: 1280px) 1216px, 100vw"
-                className="object-cover"
-                data-testid="service-image"
-              />
-            </div>
-          </div>
-        </section>
+        <PageHero
+          eyebrow={{ label: 'All services', href: '/services' }}
+          title="Interior Painting"
+          lead="Walls, ceilings, trim, doors, staircases and wallpaper, in homes and commercial spaces. Two finish coats of Sherwin-Williams or Benjamin Moore."
+          image={{ ...SERVICE_IMAGES['interior-painting'], testId: 'service-image' }}
+        >
+          <Link href="/contact" className="btn btn-primary">
+            {PRIMARY_ACTION}
+            <span aria-hidden="true" className="arrow">→</span>
+          </Link>
+        </PageHero>
 
         {/* Features Section */}
         <section className="py-20 bg-cmg-white" data-testid="service-features">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold text-cmg-charcoal mb-4">
+          <div className="wrap">
+            <div className="mb-12 max-w-3xl">
+              <h2 className="text-cmg-charcoal mb-4">
                 What We Offer
               </h2>
-              <p className="text-cmg-gray max-w-2xl mx-auto">
+              <p className="text-lg text-cmg-gray max-w-2xl mt-4">
                 Comprehensive interior painting services for every room in your home.
               </p>
             </div>
@@ -116,7 +97,7 @@ export default function InteriorPaintingPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {features.map((feature) => (
                 <div key={feature.title} className="bg-cmg-off-white rounded-xl p-6">
-                  <h3 className="text-lg font-bold text-cmg-charcoal mb-2">{feature.title}</h3>
+                  <h3 className="text-lg font-medium text-cmg-charcoal mb-2">{feature.title}</h3>
                   <p className="text-cmg-gray text-sm">{feature.description}</p>
                 </div>
               ))}
@@ -125,10 +106,10 @@ export default function InteriorPaintingPage() {
         </section>
 
         {/* Process Section */}
-        <section className="py-20 bg-cmg-light">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold text-cmg-charcoal mb-4">
+        <section className="py-20 bg-cmg-sand">
+          <div className="wrap">
+            <div className="mb-12 max-w-3xl">
+              <h2 className="text-cmg-charcoal mb-4">
                 Our Process
               </h2>
             </div>
@@ -144,7 +125,7 @@ export default function InteriorPaintingPage() {
                   <div className="w-12 h-12 rounded-full bg-cmg-royal text-cmg-white font-bold flex items-center justify-center mx-auto mb-4">
                     {item.step}
                   </div>
-                  <h3 className="font-bold text-cmg-charcoal mb-2">{item.title}</h3>
+                  <h3 className="font-medium text-cmg-charcoal mb-2">{item.title}</h3>
                   <p className="text-cmg-gray text-sm">{item.desc}</p>
                 </div>
               ))}
@@ -153,22 +134,7 @@ export default function InteriorPaintingPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-cmg-royal">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold text-cmg-white mb-4">
-              Ready to Transform Your Interior?
-            </h2>
-            <p className="text-lg text-cmg-light mb-8">
-              Contact us today for a free consultation and quote.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center font-semibold rounded-md transition-all duration-200 bg-cmg-taupe text-cmg-charcoal hover:-translate-y-0.5 hover:shadow-glass-lg px-8 py-3.5 text-lg"
-            >
-              Get Free Quote
-            </Link>
-          </div>
-        </section>
+        <CTA heading="Estimates for interior painting" line="Tell us which rooms, ceilings and trim need paint. We walk through with you and send a written proposal with one price." image={{ src: '/images/projects/built-ins-fireplace-wall.webp', alt: 'Living room with white painted built-ins around a brick fireplace' }} />
       </main>
       <Footer />
     </>

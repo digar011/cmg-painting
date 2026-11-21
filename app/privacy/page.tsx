@@ -119,19 +119,19 @@ export default function PrivacyPage() {
   return (
     <>
       <Header />
-      <main className="bg-cmg-white" data-testid="privacy-page">
+      <main id="main" className="bg-cmg-white" data-testid="privacy-page">
         <section className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16">
-          <h1 className="text-4xl font-bold text-cmg-charcoal mb-2">Privacy Policy</h1>
+          <h1 className="text-cmg-charcoal mb-2">Privacy Policy</h1>
           <p className="text-cmg-gray mb-10">Last updated: {updated}</p>
           <div className="space-y-10 text-cmg-charcoal leading-relaxed">
             {sections.map((s) => (
               <section key={s.heading}>
-                <h2 className="text-2xl font-semibold mb-3">{s.heading}</h2>
+                <h2 className="font-semibold mb-3">{s.heading}</h2>
                 {s.body}
               </section>
             ))}
             <section>
-              <h2 className="text-2xl font-semibold mb-3">Contact us</h2>
+              <h2 className="font-semibold mb-3">Contact us</h2>
               <p>
                 CMG Painting &amp; Design LLC &middot; Randolph, NJ
                 <br />

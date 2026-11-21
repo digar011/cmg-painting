@@ -1,104 +1,63 @@
-const features = [
-  {
-    title: 'Expert Craftsmanship',
-    description:
-      'Every project is executed with precision and attention to detail by our experienced team.',
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
-        />
-      </svg>
-    ),
-  },
-  {
-    title: 'Transparent Pricing',
-    description:
-      'No hidden fees or surprises. Get detailed quotes upfront so you know exactly what to expect.',
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
-        />
-      </svg>
-    ),
-  },
-  {
-    title: 'On-Time Delivery',
-    description:
-      'We respect your schedule. Projects are completed on time without compromising quality.',
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-        />
-      </svg>
-    ),
-  },
-  {
-    title: 'Fully Insured',
-    description:
-      'Full peace of mind with proper insurance coverage and quality guarantee on all our work.',
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-        />
-      </svg>
-    ),
-  },
-];
+import Image from 'next/image';
 
+const steps = [
+  {
+    title: 'A written proposal',
+    description: 'We walk every surface with you and write the scope room by room, with one price for labor and materials.',
+  },
+  {
+    title: 'Protection and prep',
+    description: 'Floors and furniture covered, plates removed. Then patching, sanding, caulking and priming where needed.',
+  },
+  {
+    title: 'Two finish coats',
+    description: 'Sherwin-Williams or Benjamin Moore, two coats on walls, ceilings, trim and doors.',
+  },
+  {
+    title: 'Cleanup and touch-up paint',
+    description: 'Work areas cleaned every day. At the end we leave labeled touch-up paint for you.',
+  },
+] as const;
+
+/** How a CMG job runs: the dark band of the page, with the crew at work. */
 export default function WhyCMG() {
   return (
-    <section className="py-20 bg-cmg-charcoal" data-testid="why-cmg">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <p className="text-cmg-taupe font-semibold uppercase tracking-widest mb-2">
-            Why Choose Us
+    <section className="bg-cmg-ink py-20 text-white lg:py-28" data-testid="why-cmg" aria-labelledby="process-heading">
+      <div className="wrap grid gap-12 lg:grid-cols-12 lg:gap-6">
+        <div className="lg:col-span-5">
+          <h2 id="process-heading" className="text-white">How a CMG job runs</h2>
+          <p className="mt-5 max-w-[40ch] text-lg text-cmg-taupe">
+            Owner Diego J. Garnica writes and signs every proposal, so you know who answers for the
+            job from the first visit to the last coat.
           </p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-cmg-white mb-4">
-            The CMG Difference
-          </h2>
-          <p className="text-cmg-taupe max-w-2xl mx-auto">
-            We combine old-school craftsmanship with modern techniques to deliver
-            results that exceed expectations.
-          </p>
+          <div className="relative mt-10 aspect-[4/3] overflow-hidden rounded-frame">
+            <Image
+              src="/images/projects/deck-powerwash.webp"
+              alt="CMG painter powerwashing a wooden deck before staining"
+              fill
+              sizes="(min-width: 1024px) 490px, 100vw"
+              className="object-cover"
+            />
+          </div>
         </div>
 
-        {/* Features Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map((feature, index) => (
-            <div
-              key={feature.title}
-              data-testid={`why-cmg-card-${index + 1}`}
-              className="bg-white/5 backdrop-blur-[10px] rounded-xl p-6 border border-white/10 hover:bg-white/[0.08] hover:border-white/20 transition-all duration-300"
+        <ol className="lg:col-span-6 lg:col-start-7">
+          {steps.map((step, i) => (
+            <li
+              key={step.title}
+              data-testid={`why-cmg-card-${i + 1}`}
+              className="grid grid-cols-[3rem_1fr] gap-4 border-t border-white/15 py-7 first:border-t-0 first:pt-0 lg:py-9"
             >
-              <div className="w-12 h-12 rounded-lg bg-cmg-royal flex items-center justify-center text-cmg-taupe mb-4">
-                {feature.icon}
+              <span className="font-display text-2xl text-cmg-sky" aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <div>
+                <h3 className="text-white">{step.title}</h3>
+                <p className="mt-2 text-cmg-taupe">{step.description}</p>
               </div>
-              <h3 className="text-lg font-bold text-cmg-white mb-2">
-                {feature.title}
-              </h3>
-              <p className="text-cmg-taupe text-sm leading-relaxed">
-                {feature.description}
-              </p>
-            </div>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );

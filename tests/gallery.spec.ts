@@ -11,7 +11,7 @@ test.describe('Gallery Page', () => {
 
   test('displays correct h1', async ({ page }) => {
     const h1 = page.locator('h1');
-    await expect(h1).toContainText('Project Gallery');
+    await expect(h1).toContainText('Painting projects');
   });
 
   test.describe('Filter Functionality', () => {

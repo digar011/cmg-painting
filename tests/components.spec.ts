@@ -30,12 +30,13 @@ test.describe('Header Component', () => {
     await expect(page.getByTestId('header-cta')).toBeVisible();
   });
 
-  test('header changes style on scroll', async ({ page }) => {
+  test('header stays pinned to the top on scroll', async ({ page }) => {
     await page.goto('/');
     const header = page.getByTestId('site-header');
-    await page.evaluate(() => window.scrollTo(0, 100));
-    await page.waitForTimeout(500);
-    await expect(header).toHaveClass(/backdrop-blur/);
+    await page.evaluate(() => window.scrollTo(0, 1200));
+    await expect(header).toBeInViewport();
+    const box = await header.boundingBox();
+    expect(box?.y).toBe(0);
   });
 });
 

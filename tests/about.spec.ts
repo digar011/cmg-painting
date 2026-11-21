@@ -129,7 +129,7 @@ test.describe('About Page', () => {
     });
 
     test('CTA has heading', async ({ page }) => {
-      await expect(page.getByText('Ready to Work Together?')).toBeVisible();
+      await expect(page.getByTestId('about-cta').getByRole('heading', { level: 2 })).toContainText('Free written estimates');
     });
 
     test('CTA links to contact form and phone', async ({ page }) => {

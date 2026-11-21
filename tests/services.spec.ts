@@ -11,7 +11,7 @@ test.describe('Services Hub Page', () => {
 
   test('displays correct h1', async ({ page }) => {
     const h1 = page.locator('h1');
-    await expect(h1).toContainText('Our Services');
+    await expect(h1).toContainText('Painting and repair services');
   });
 
   test('services list section is visible', async ({ page }) => {
@@ -54,7 +54,7 @@ test.describe('Interior Painting Page', () => {
   });
 
   test('back to services link works', async ({ page }) => {
-    await page.getByText('Back to Services').click();
+    await page.getByRole('link', { name: 'All services' }).click();
     await expect(page).toHaveURL(/\/services$/);
   });
 });
@@ -78,7 +78,7 @@ test.describe('Exterior Painting Page', () => {
   });
 
   test('back to services link works', async ({ page }) => {
-    await page.getByText('Back to Services').click();
+    await page.getByRole('link', { name: 'All services' }).click();
     await expect(page).toHaveURL(/\/services$/);
   });
 });
@@ -102,7 +102,7 @@ test.describe('Powerwashing Page', () => {
   });
 
   test('back to services link works', async ({ page }) => {
-    await page.getByText('Back to Services').click();
+    await page.getByRole('link', { name: 'All services' }).click();
     await expect(page).toHaveURL(/\/services$/);
   });
 });
@@ -126,7 +126,7 @@ test.describe('Light Carpentry Page', () => {
   });
 
   test('back to services link works', async ({ page }) => {
-    await page.getByText('Back to Services').click();
+    await page.getByRole('link', { name: 'All services' }).click();
     await expect(page).toHaveURL(/\/services$/);
   });
 });

@@ -13,7 +13,7 @@ test.describe('Contact Page', () => {
 
   test('displays correct h1', async ({ page }) => {
     const h1 = page.locator('h1');
-    await expect(h1).toContainText('Contact Us');
+    await expect(h1).toContainText('Request a free painting estimate');
   });
 
   test.describe('Contact Info Section', () => {
@@ -115,7 +115,7 @@ test.describe('Contact Page', () => {
       await page.getByTestId('input-email').fill('test@example.com');
       await page.getByTestId('input-phone').fill('1234567890');
       await page.getByTestId('submit-button').click();
-      await expect(page.getByTestId('form-success')).toContainText('Thank You');
+      await expect(page.getByTestId('form-success')).toContainText('Thank you');
     });
 
     test('delivery failure shows the call-us message, not a fake success', async ({ page }) => {
