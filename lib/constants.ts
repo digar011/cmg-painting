@@ -12,8 +12,11 @@ export const SITE_CONFIG = {
     full: 'Randolph, NJ',
   },
   counties: ['Morris County', 'Essex County', 'Union County', 'Sussex County'],
+  // Footer icons and JSON-LD `sameAs` render only the profiles that are set.
+  // Instagram: paste the profile URL here once the page is live.
   social: {
     facebook: 'https://www.facebook.com/CMGPaintinganddesign/',
+    instagram: '',
   },
 } as const;
 

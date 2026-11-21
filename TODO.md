@@ -6,8 +6,10 @@
 - [ ] Launch Meta (Facebook/Instagram) lead ads -- blocked on ad budget and ad account; plan and creatives are in the owner's local `cmg/marketing/meta-ads` folder
 - [ ] Collect customer reviews and add a testimonials/reviews section (real, attributable reviews only)
 - [ ] Set up Sanity CMS in production (project ID/dataset in Vercel) and load gallery content, or remove the integration
-- [ ] Add `og-image.jpg` (1200x630) to `public/` for social sharing previews (referenced in `app/layout.tsx`, 404 in production)
-- [ ] Add favicon files (`favicon.ico`, `apple-touch-icon.png`) to `public/` (referenced in `app/layout.tsx`, 404 in production)
+- [ ] Add the Instagram URL to `SITE_CONFIG.social.instagram` once the page is live (footer + JSON-LD pick it up)
+- [ ] Owner: confirm the 2026-11-21 test quote request (subject "New quote request: Other — TEST - Codexium launch check") arrived in the contact inbox (check Junk)
+- [ ] Fix mobile flake in `tests/e2e/cta.spec.ts` header CTA test (pre-existing)
+- [ ] Confirm "Fully Insured" claim in the footer (unverified, same as Why CMG section)
 - [ ] Reconcile Contact page service-area towns with the documented `SERVICE_TOWNS` list (confirm with owner)
 - [ ] Confirm "Fully Insured" claim on the home page Why CMG section (removed from About as unverified)
 - [ ] Set up Google Analytics integration
@@ -26,6 +28,9 @@
 (No tasks currently in progress.)
 
 ## Completed
+
+- [x] 2026-11-21 -- Added og-image.jpg + favicons (PR fix/og-image-favicons). Facebook share cards now show a picture.
+- [x] 2026-11-21 -- Live test of the quote form: `/api/contact` returned success via SMTP in production.
 
 - [x] Initial Next.js 14 project setup with TypeScript and Tailwind CSS
 - [x] All core pages built (Home, Services, Gallery, About, Contact)

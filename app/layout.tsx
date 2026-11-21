@@ -75,7 +75,10 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+    ],
     apple: "/apple-touch-icon.png",
   },
 };
@@ -111,7 +114,7 @@ export default function RootLayout({
       "@type": "AdministrativeArea",
       name: county,
     })),
-    sameAs: [SITE_CONFIG.social.facebook],
+    sameAs: Object.values(SITE_CONFIG.social).filter(Boolean),
   };
 
   const websiteSchema = {

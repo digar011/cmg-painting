@@ -120,5 +120,7 @@ npm run test:ui      # Playwright UI mode
 ## Important Warnings
 
 - **Contact form email** (`app/api/contact/route.ts`) sends via Nodemailer only when `SMTP_HOST`, `SMTP_USER` and `SMTP_PASS` are set (`SMTP_FROM` falls back to `SMTP_USER`; `CONTACT_EMAIL` falls back to `SITE_CONFIG.email`; port defaults to 465, `secure` only on 465). Without SMTP it returns an honest **503** telling the visitor to call. It never fakes success. Tests stub `/api/contact`, so they never send mail.
-- `app/layout.tsx` references `/og-image.jpg`, `/favicon.ico` and `/apple-touch-icon.png`, but none exist in `public/` (they 404 in production). Add them before relying on social previews.
+- Share and icon assets live in `public/` (`og-image.jpg` 1200x630, `favicon.ico`, `apple-touch-icon.png`, `icon.png`), built from the owner's logo and a real project photo; `tests/share-assets.spec.ts` guards them. Facebook caches previews: after changing `og-image.jpg`, re-scrape the URL in the Meta Sharing Debugger.
+- Social profiles live in `SITE_CONFIG.social`; the footer and JSON-LD only show the ones with a URL (Instagram is empty until the page is live).
+- `tests/e2e/cta.spec.ts` "header CTA navigates to contact from all pages" fails on the mobile project (pre-existing on `master`, navigation race on the mobile menu).
 - Contact page service-area towns (`app/contact/page.tsx`) differ from the documented `SERVICE_TOWNS` in `lib/constants.ts` used on the About page. Confirm with the owner before changing either.

@@ -287,7 +287,7 @@ images: {
 ## Checklist
 
 - [x] Update phone number ((973) 462-7310)
-- [ ] Add og-image.jpg to public folder (referenced in `app/layout.tsx`, currently 404 in production)
+- [x] Add og-image.jpg to public folder (added 2026-11-21, 1200x630)
 - [ ] Verify Google Search Console
 - [ ] Submit sitemap
 - [ ] Add Google Business Profile
