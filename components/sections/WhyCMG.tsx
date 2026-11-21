@@ -19,7 +19,7 @@ const steps = [
   },
 ] as const;
 
-/** How a CMG job runs: the dark band of the page, with the crew at work. */
+/** How a CMG job runs: the dark band of the page, with a finished porch. */
 export default function WhyCMG() {
   return (
     <section className="bg-cmg-ink py-20 text-white lg:py-28" data-testid="why-cmg" aria-labelledby="process-heading">
@@ -32,8 +32,8 @@ export default function WhyCMG() {
           </p>
           <div className="relative mt-10 aspect-[4/3] overflow-hidden rounded-frame">
             <Image
-              src="/images/projects/deck-powerwash.webp"
-              alt="CMG painter powerwashing a wooden deck before staining"
+              src="/images/projects/front-porch-steps.webp"
+              alt="Front porch steps stained red with white risers, finished by CMG"
               fill
               sizes="(min-width: 1024px) 490px, 100vw"
               className="object-cover"

@@ -37,7 +37,7 @@ npm run test:ui      # Playwright UI mode
 - `components/ui/` -- Reusable UI primitives (Button, Logo, ServiceCard, ProjectCard, BackToTop)
 - `components/forms/` -- Form components (ContactForm)
 - `lib/` -- Utilities and constants (`constants.ts` business info, `projects.ts` real project imagery)
-- `public/images/` -- `projects/` (21 real project photos, WebP, EXIF/GPS stripped), `services/` (service page headers), `hero-home.webp` (AI-generated)
+- `public/images/` -- `projects/` (real project photos, WebP, EXIF/GPS stripped), `services/` (service page headers), `hero-home.webp` (AI-generated)
 - `sanity/` -- CMS configuration, schemas, client, queries
 - `tests/` -- Playwright test files
 - `tests/e2e/` -- Integration/smoke tests
@@ -90,7 +90,7 @@ Design system from the 2026-11 redesign (warm paper ground, navy-black ink, the 
 - Sanity Studio is embedded at `/studio`.
 - Project schema is in `sanity/schemas/project.ts`.
 - GROQ queries are in `sanity/lib/queries.ts`.
-- The gallery shows the 21 real projects from `lib/projects.ts` unless Sanity is configured in production and returns documents (Sanity is not configured on the live site yet).
+- The gallery shows the 20 real projects from `lib/projects.ts` unless Sanity is configured in production and returns documents (Sanity is not configured on the live site yet).
 - Revalidation is set to 60 seconds on the gallery page.
 
 ## Environment Variables
@@ -117,6 +117,7 @@ Design system from the 2026-11 redesign (warm paper ground, navy-black ink, the 
 
 - **City and state only.** Never publish a street address or ZIP code anywhere (UI, JSON-LD, metadata, docs). `SITE_CONFIG.address` holds `Randolph, NJ` only. `tests/no-street-address.spec.ts` guards `/`, `/about`, `/contact`, `/privacy`.
 - **Phone** `(973) 462-7310` in `SITE_CONFIG.phone` is the confirmed real business number.
+- **No crew photos for now (owner, 2026-11-21).** `deck-powerwash.webp` and `services/powerwashing.webp` show a crew member; they stay in the repo but are not used anywhere. Do not add photos of people until the owner says so.
 - **Imagery honesty.** Photos in `public/images/projects/` and `public/images/services/` are real CMG work. The home hero (`public/images/hero-home.webp`, `HERO_IMAGE`) is AI-generated and must never be captioned or presented as a real CMG project. Project captions describe only what the photo shows; locations stay general ("Northern New Jersey") for homeowner privacy.
 - **Fact-checked copy.** About page claims come from CMG's own proposals and records. Do not add unverified claims (e.g. insurance, star ratings, review counts).
 - `/privacy` is required by Meta lead ads (Instant Forms); keep it live and linked in the footer.
